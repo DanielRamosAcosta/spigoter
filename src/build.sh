@@ -70,6 +70,16 @@ function wait_pid(){
 	echo "."
 }
 
+function run_and_close_server(){
+	create_screen minecraft
+	execute_command minecraft ./start.sh
+	sleep 7s
+	execute_command minecraft stop
+	pid=$(get_pid spigot)
+	wait_pid $pid
+	remove_screen minecraft
+}
+
 # ============================================================================ Main script
 
 # [DEPEN] wget
@@ -122,16 +132,12 @@ sed -i -e 's/eula=false/eula=true/g' eula.txt
 
 say "Starting server to generate config files"
 
-create_screen minecraft
-execute_command minecraft ./start.sh
-sleep 10s
-execute_command minecraft stop
-pid=$(get_pid spigot)
-wait_pid $pid
-remove_screen minecraft
+run_and_close_server
 
 say "Files are now generated"
 # World cleanup
+
+say "Cleaning default world"
 rm -rf world
 rm -rf world_nether
 rm -rf world_the_end
