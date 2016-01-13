@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Goto strick
+# Goto trick
 #if false; then # GOTO SKIP
 #fi             # :SKIP
 
@@ -8,6 +8,7 @@
 type wget >/dev/null 2>&1 || { echo >&2 "[ERROR] I require wget but it's not installed. Aborting."; exit 1; }
 type java >/dev/null 2>&1 || { echo >&2 "[ERROR] I require java but it's not installed. Aborting."; exit 1; }
 type screen >/dev/null 2>&1 || { echo >&2 "[ERROR] I require screen but it's not installed. Aborting."; exit 1; }
+type unzip >/dev/null 2>&1 || { echo >&2 "[ERROR] I require screen but it's not installed. Aborting."; exit 1; }
 
 PREFIX_INFO="[\e[34mINFO\e[0m]"
 PREFIX_INPUT="[\e[32mQUESTION\e[0m]"
@@ -80,13 +81,17 @@ function run_and_close_server(){
 	remove_screen minecraft
 }
 
+function download(){
+	wget $1 > /dev/null 2>&1
+}
+
 # ============================================================================ Main script
 
 # [DEPEN] wget
 mkdir build
 cd build
 say "Downloading Spigot..."
-wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar > /dev/null 2>&1
+download https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 if [[ $? == "1" ]]; then
 	exit_error "An error ocurred while downloading spigot"
 fi
@@ -174,7 +179,29 @@ mv spawn.tar.gz worlds
 cd worlds
 tar -zxvf spawn.tar.gz > /dev/null 2>&1 # Clean output
 rm spawn.tar.gz
+cd ..
 
 say "Done"
 
 # ============================================================================ Import MultiVerse plugin
+
+say "Downloading Multiverse plugin"
+cd plugins
+download "http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/*zip*/archive.zip"
+unzip archive.zip > /dev/null 2>&1 # Clean output
+cd archive/target
+rm *javadoc.jar
+rm *sources.jar
+mv Multi* ../../Multiverse.jar
+cd ../..
+rm -rf archive/ archive.zip
+
+# ============================================================================Import multiverse portals
+# ============================================================================Import vault
+# ============================================================================Import essentials
+# ============================================================================Import iconomy
+# ============================================================================Import permissonsex
+# ============================================================================Import 
+
+run_and_close_server
+# setblock 1458 64 -56 stone
