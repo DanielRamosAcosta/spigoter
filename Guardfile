@@ -36,6 +36,11 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(rspec.spec_support) { rspec.spec_dir }
   watch(rspec.spec_files)
 
+  watch(/lib\/.*/) do |m|
+    file_changed = m.first.sub("lib/spigoter/", "").sub(".rb", "")
+    "spec/#{file_changed}_spec.rb"
+  end
+
   # Ruby files
   ruby = dsl.ruby
   dsl.watch_spec_files_for(ruby.lib_files)
