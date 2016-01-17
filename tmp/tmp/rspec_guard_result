@@ -1,0 +1,4 @@
+4 examples, 3 failures in 0.0011 seconds
+./spec/new_spec.rb:10
+./spec/new_spec.rb:13
+./spec/new_spec.rb:16
