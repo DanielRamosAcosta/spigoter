@@ -3,7 +3,6 @@ require 'fileutils'
 
 describe Spigoter::Server do
 	before :all do
-		Dir.chdir('tmp')
 		@server_settings = {name: "testserver"}
 		Spigoter::Server.new(@server_settings)
 	end
@@ -17,6 +16,6 @@ describe Spigoter::Server do
 		expect(Dir.exists?("#{@server_settings[:name]}/build")).to be true
 	end
 	after :all do
-		#FileUtils.rm_r @server_settings[:name]
+		FileUtils.rm_r @server_settings[:name]
 	end
 end
