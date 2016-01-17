@@ -1,0 +1,3 @@
+require 'spigoter'
+
+puts "Hello World!"

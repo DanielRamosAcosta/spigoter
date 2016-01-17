@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Gem for building a Spigot server and maintain it}
   spec.description   = %q{Gem for building a Spigot server and maintain it}
   spec.homepage      = "https://github.com/DanielRamosAcosta/spigoter"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -28,6 +29,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "guard"
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "guard-rspec"
 end
