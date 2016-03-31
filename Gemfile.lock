@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spigoter (0.1.0)
+    spigoter (0.1.1)
       json (~> 1.8)
       logging (~> 2.1)
 
