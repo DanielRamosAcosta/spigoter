@@ -24,8 +24,7 @@ module Spigoter
 			rescue
 				raise "404 Error, that plugin URL doesn't exists"
 			end
-			return @main_page unless @main_page.nil?
-			raise "Mainpage url error"
+			return @main_page
 		end
 		def download_page
 			return @download_page unless @download_page.nil?
@@ -35,8 +34,7 @@ module Spigoter
 			rescue
 				raise "404 Error, that plugin URL doesn't exists"
 			end
-			return @download_page unless @download_page.nil?
-			raise "Download page url error"
+			return @download_page
 		end
 		def download_url
 			return @download_url unless @download_url.nil?

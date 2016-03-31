@@ -42,6 +42,10 @@ describe Spigoter::PluginCurse do
 		it "if the plugin doesnt exists" do
 			expect{downloaded = @unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 		end
+		it "if there is no internet connection" do
+			allow(@plugin).to receive(:open).and_raise(SocketError)
+			expect{downloaded = @plugin.download}.to raise_error(SocketError)
+		end
 		after :all do
 			FileUtils.rm "tmp/plugin.jar"
 		end
