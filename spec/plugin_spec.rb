@@ -21,8 +21,17 @@ describe 'Spigoter.update' do
 		]'
 		@plugins = JSON.parse(json)
 	end
-	it 'Se le debe pasar un json' do
-		Spigoter.update(@plugins)
-		expect(true).to be true
+	describe '#update' do
+		before :each do
+			Dir.mkdir 'plugins'
+		end
+		it 'Se le debe pasar un json' do
+			Spigoter.update(@plugins, 'plugins')
+			expect(File.open('plugins/Authme.jar').size).to be_within(10000).of(1796786)
+			expect(File.open('plugins/BossShop.jar').size).to be_within(10000).of(195801)
+		end
+		after :each do
+			FileUtils.rm_r 'plugins'
+		end
 	end
 end
