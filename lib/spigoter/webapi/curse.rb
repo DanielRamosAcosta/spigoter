@@ -56,9 +56,12 @@ module Spigoter
 		def download
 			download_url
 			@log.info "Downloading"
-			file = open(@download_url).read
-			return file unless file.nil?
-			raise "Can't download file for #{name}, #{@download_url}"
+			begin
+				file = open(@download_url).read
+			rescue
+				raise "Can't download file for #{name}, #{@download_url}, check internet?"
+			end
+			return file
 		end
 	end
 end

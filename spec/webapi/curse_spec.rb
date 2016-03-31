@@ -44,7 +44,7 @@ describe Spigoter::PluginCurse do
 		end
 		it "if there is no internet connection" do
 			allow(@plugin).to receive(:open).and_raise(SocketError)
-			expect{downloaded = @plugin.download}.to raise_error(SocketError)
+			expect{@plugin.download}.to raise_error(RuntimeError, "Can't download file for multiverse-core, http://addons.curse.cursecdn.com/files/588/781/Multiverse-Core-2.4.jar, check internet?")
 		end
 		after :all do
 			FileUtils.rm "tmp/plugin.jar"
