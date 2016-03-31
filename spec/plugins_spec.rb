@@ -23,15 +23,15 @@ describe 'Spigoter.update' do
 	end
 	describe '#update' do
 		before :each do
-			Dir.mkdir 'plugins'
+			Dir.mkdir 'tmp/plugins'
 		end
 		it 'Se le debe pasar un json' do
-			Spigoter.update(@plugins, 'plugins')
-			expect(File.open('plugins/Authme.jar').size).to be_within(10000).of(1796786)
-			expect(File.open('plugins/BossShop.jar').size).to be_within(10000).of(195801)
+			Spigoter.update(@plugins, 'tmp/plugins')
+			expect(File.open('tmp/plugins/Authme.jar').size).to be_within(10000).of(1796786)
+			expect(File.open('tmp/plugins/BossShop.jar').size).to be_within(10000).of(195801)
 		end
 		after :each do
-			FileUtils.rm_r 'plugins'
+			FileUtils.rm_r 'tmp/plugins'
 		end
 	end
 end

@@ -1,6 +1,7 @@
 # Spigoter
 
-[![Build Status](https://travis-ci.org/DanielRamosAcosta/spigoter.svg?branch=master)](https://travis-ci.org/DanielRamosAcosta/spigoter)
+[![Build Status](https://travis-ci.org/DanielRamosAcosta/spigoter.svg?branch=master)](https://travis-ci.org/DanielRamosAcosta/spigoter) [![Coverage Status](https://coveralls.io/repos/github/DanielRamosAcosta/spigoter/badge.svg?branch=master)](https://coveralls.io/github/DanielRamosAcosta/spigoter?branch=master) [![Dependency Status](https://gemnasium.com/DanielRamosAcosta/spigoter.svg)](https://gemnasium.com/DanielRamosAcosta/spigoter)
+
 
 Spigoter is a Ruby gem that gives you many tools make your server keepup easier.
 

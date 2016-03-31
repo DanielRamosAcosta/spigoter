@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Daniel Ramos"]
   spec.email         = ["danielramosacosta@hotmail.com"]
 
-  spec.summary       = %q{Gem for building a Spigot server and maintain it}
-  spec.description   = %q{Gem for building a Spigot server and maintain it}
+  spec.summary       = %q{A CLI utility for Minecraft servers}
+  spec.description   = %q{A CLI utility for Minecraft servers}
   spec.homepage      = "https://github.com/DanielRamosAcosta/spigoter"
   spec.license       = "MIT"
 
@@ -28,8 +28,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "trollop"
+  spec.add_development_dependency "rake", "~> 11.1"
+  spec.add_development_dependency "rspec", "~> 3.4"
+  spec.add_development_dependency "guard", "~> 2.13"
+  spec.add_development_dependency "guard-rspec", "~> 4.6"
+  spec.add_development_dependency "guard-bundler", "~> 2.1"
+  spec.add_development_dependency "coveralls", "~> 0.8"
+  spec.add_development_dependency "yard", "~> 0.8"
+  spec.add_development_dependency "trollop", "~> 2.1"
 end
