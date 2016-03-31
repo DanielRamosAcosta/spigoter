@@ -1,5 +1,6 @@
 require "spigoter/version"
-require 'spigoter/new'
+require 'spigoter/plugins'
+require 'spigoter/webapi/curse'
 
 module Spigoter
   # Your code goes here...
