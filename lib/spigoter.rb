@@ -1,4 +1,5 @@
 require "spigoter/version"
+require "spigoter/log/log.rb"
 require 'spigoter/plugins'
 require 'spigoter/webapi/curse'
 
