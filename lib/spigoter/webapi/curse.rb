@@ -10,6 +10,8 @@ module Spigoter
 			@download_page # Content of the download page
 			@download_url  # Download url of the plugin
 
+			raise "Bad URL #{@url}" if @url.match(/^http:\/\/mods.curse.com\/bukkit-plugins\/minecraft\/[a-z\-]+$/).nil?
+
 			@log = Logging.logger['Spigoter::PluginCurse']
   			@log.add_appenders 'stdout'
   			@log.level = :info
@@ -17,12 +19,24 @@ module Spigoter
 		def main_page
 			return @main_page unless @main_page.nil?
 			@log.info "Downloading main page"
-			@main_page = open(@url).read
+			begin
+				@main_page = open(@url).read
+			rescue
+				raise "404 Error, that plugin URL doesn't exists"
+			end
+			return @main_page unless @main_page.nil?
+			raise "Mainpage url error"
 		end
 		def download_page
 			return @download_page unless @download_page.nil?
 			@log.info "Downloading download page"
-			@download_page = open(@url+'/download').read
+			begin
+				@download_page = open(@url+'/download').read
+			rescue
+				raise "404 Error, that plugin URL doesn't exists"
+			end
+			return @download_page unless @download_page.nil?
+			raise "Download page url error"
 		end
 		def download_url
 			return @download_url unless @download_url.nil?
@@ -44,7 +58,9 @@ module Spigoter
 		def download
 			download_url
 			@log.info "Downloading"
-			open(@download_url) {|f| yield f }
+			file = open(@download_url).read
+			return file unless file.nil?
+			raise "Can't download file for #{name}, #{@download_url}"
 		end
 	end
 end
