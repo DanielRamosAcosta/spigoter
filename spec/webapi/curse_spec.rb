@@ -40,7 +40,8 @@ describe Spigoter::PluginCurse do
 			expect(file.size).to be_within(10000).of(325808)
 		end
 		it "if the plugin doesnt exists" do
-			expect{downloaded = @unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
+			expect{@unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
+			expect{@unk_plugin.version}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 		end
 		it "if there is no internet connection" do
 			allow(@plugin).to receive(:open).and_raise(SocketError)
