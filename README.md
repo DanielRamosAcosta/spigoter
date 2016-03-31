@@ -1,5 +1,7 @@
 # Spigoter
 
+[![Build Status](https://travis-ci.org/DanielRamosAcosta/spigoter.svg?branch=master)](https://travis-ci.org/DanielRamosAcosta/spigoter)
+
 Spigoter is a Ruby gem that gives you many tools make your server keepup easier.
 
 ## Installation
