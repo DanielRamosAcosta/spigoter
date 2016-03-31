@@ -10,6 +10,7 @@ module Spigoter
 				hash = get_plugin(plugin_data)
 				plugin_file = File.open("#{output_dir}/#{hash[:name]}", 'wb')
 				plugin_file.write(hash[:file])
+				@log.info "#{plugin_data['name']} was downloaded correctly"
 			end
 		end
 		def self.get_plugin(data)
