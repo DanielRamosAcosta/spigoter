@@ -11,14 +11,10 @@ module Spigoter
 			@download_url  # Download url of the plugin
 
 			raise "Bad URL #{@url}" if @url.match(/^http:\/\/mods.curse.com\/bukkit-plugins\/minecraft\/[a-z\-]+$/).nil?
-
-			@log = Logging.logger['Spigoter::PluginCurse']
-  			@log.add_appenders 'stdout'
-  			@log.level = :info
 		end
 		def main_page
 			return @main_page unless @main_page.nil?
-			@log.info "Downloading main page"
+			Log.info "Downloading main page"
 			begin
 				@main_page = open(@url).read
 			rescue
@@ -28,7 +24,7 @@ module Spigoter
 		end
 		def download_page
 			return @download_page unless @download_page.nil?
-			@log.info "Downloading download page"
+			Log.info "Downloading download page"
 			begin
 				@download_page = open(@url+'/download').read
 			rescue
@@ -39,23 +35,23 @@ module Spigoter
 		def download_url
 			return @download_url unless @download_url.nil?
 			download_page
-			@log.info "Parsing download url"
+			Log.info "Parsing download url"
 			@download_url = /(?<download_url>http:\/\/addons.curse.cursecdn.com.+\.jar)/.match(@download_page)[:download_url]
 		end
 		def version
 			return @version unless @version.nil?
 			main_page
-			@log.info "Getting version"
+			Log.info "Getting version"
 			@version = /Newest File: (?<version>.+)</.match(@main_page)[:version]
 		end
 		def name
 			return @name unless @name.nil?
-			@log.info "Getting name"
+			Log.info "Getting name"
 			@name = /minecraft\/(?<name>.+)/.match(@url)[:name]
 		end
 		def download
 			download_url
-			@log.info "Downloading"
+			Log.info "Downloading"
 			begin
 				file = open(@download_url).read
 			rescue

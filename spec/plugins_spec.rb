@@ -41,17 +41,4 @@ describe Spigoter::Plugins do
 			expect{Spigoter::Plugins.get_plugin(@bad_url)}.to raise_error(RuntimeError, "Bad URL http://mods.curse.com/bukkit-plugins/minecraft/?????????")
 		end
 	end
-	describe '#update' do
-		before :all do
-			Dir.mkdir 'tmp/plugins'
-		end
-		it 'Se le debe pasar un json' do
-			Spigoter::Plugins.update(@plugins, 'tmp/plugins')
-			expect(File.open('tmp/plugins/Authme.jar').size).to be_within(10000).of(1796786)
-			expect(File.open('tmp/plugins/BossShop.jar').size).to be_within(10000).of(195801)
-		end
-		after :all do
-			FileUtils.rm_r 'tmp/plugins'
-		end
-	end
 end

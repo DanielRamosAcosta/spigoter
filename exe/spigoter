@@ -4,14 +4,6 @@ require 'spigoter'
 require 'trollop'
 require 'json'
 
-@log = Logging.logger['CLI']
-@log.add_appenders 'stdout'
-@log.level = :info
-
-@log_err = Logging.logger['CLI']
-@log_err.add_appenders Logging.appenders.stderr
-@log_err.level = :error
-
 
 opts = Trollop::options do
     banner <<-EOS
@@ -21,50 +13,10 @@ Usage:
        spigoter [options]
 where [options] are:
 EOS
-    opt :javaparm, 'Sets the java parameters', :default => '-Xms1024M -Xmx4096M -jar spigot.jar?' #TODO: Poner esto aqui
-	opt :compile, "Compiles spigot and sets the new version", :default => 'lastest'
-	opt :update, "Set permissons plugin", :default => 'all'
-end
-
-if(opts[:update])
-	@log.info "Updating!"
-	if !File.exist?('plugins.json')
-		@log_err.error "plugins.json doesn't exists, please, create one"
-		exit(1)
-	end
-	if !Dir.exists?('plugins')
-		@log_err.error "plugins directory doesn't exists, please, create it"
-		exit(1)
-	end
-	file = File.read("plugins.json")
-	plugins = JSON.parse(file)
-	Spigoter::Plugins.update(plugins, 'plugins')
-	exit
-end
-
-if(opts[:compile])
-	@log.info "Compiling!"
-	exit
+    opt :javaparm, 'Sets the java parameters', :default => '-Xms1024M -Xmx4096M -jar spigot.jar' #TODO: Poner esto aqui
+	opt :compile, "Compiles spigot and sets the new version"
+	opt :update, "Set permissons plugin"
 end
 
 
-# Run server
-
-if which('java').nil?
-	`java #{javaparm}`
-else
-	@log_err.error "You don't have java in PATH"
-end
-
-
-
-def which(cmd)
-	exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-	ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-		exts.each { |ext|
-			exe = File.join(path, "#{cmd}#{ext}")
-			return exe if File.executable?(exe) && !File.directory?(exe)
-		}
-	end
-	return nil
-end
+Spigoter::CLI.main(opts)
