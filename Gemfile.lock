@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     spigoter (0.1.0)
+      json (~> 1.8)
 
 GEM
   remote: https://rubygems.org/
