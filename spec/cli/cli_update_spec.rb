@@ -26,6 +26,12 @@ describe Spigoter::CLI do
 				    		"url": "http://mods.curse.com/bukkit-plugins/minecraft/bossshop",
 				    		"type": "curse",
 				    		"last_update": "31-3-2016 - 0:40"
+				  		},
+				  		{
+					   		"name": "Dynmap",
+				  			"url": "http://dev.bukkit.org/bukkit-plugins/dynmap/",
+				  			"type": "devbukkit",
+				  			"last_update": "31-3-2016 - 0:40"
 				  		}
 					]
 				')
@@ -39,6 +45,7 @@ describe Spigoter::CLI do
 				Spigoter::CLI.update(opts)
 				expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
 				expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
+				expect(File.open("plugins/Dynmap.jar").size).to be_within(10000).of(4102422)
 			end
 			it "If no plugins.json is found, exit with 1" do
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
