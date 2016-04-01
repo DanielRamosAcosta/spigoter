@@ -11,30 +11,18 @@ describe Spigoter::CLI do
 			before :all do
 				Dir.chdir('tmp')
 				Dir.mkdir('plugins')
-				json = File.open("plugins.json", 'wb')
-				json.write('
-					[
-						{
-							"name": "Authme",
-				    		"url": "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded",
-				    		"type": "curse",
-				    		"last_update": "31-3-2016 - 0:40"
-				  		},
-				  		{
-					   		"name": "BossShop",
-				    		"url": "http://mods.curse.com/bukkit-plugins/minecraft/bossshop",
-				    		"type": "curse",
-				    		"last_update": "31-3-2016 - 0:40"
-				  		},
-				  		{
-					   		"name": "Dynmap",
-				  			"url": "http://dev.bukkit.org/bukkit-plugins/dynmap/",
-				  			"type": "devbukkit",
-				  			"last_update": "31-3-2016 - 0:40"
-				  		}
-					]
-				')
-				json.close
+				yml = File.open("plugins.yml", 'wb')
+				yml.write('
+Authme:
+  url: "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded"
+  type: "curse"
+BossShop:
+  url: "http://mods.curse.com/bukkit-plugins/minecraft/bossshop"
+  type: "curse"
+Dynmap:
+  url: "http://dev.bukkit.org/bukkit-plugins/dynmap/"
+  type: "devbukkit"')
+				yml.close
 			end
 			after :all do
 				FileUtils.rm_rf(Dir.glob("*"))

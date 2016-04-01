@@ -14,7 +14,6 @@ module Spigoter
 		end
 		def main_page
 			return @main_page unless @main_page.nil?
-			Log.info "Downloading main page"
 			begin
 				@main_page = open(@url).read
 			rescue
@@ -24,7 +23,6 @@ module Spigoter
 		end
 		def download_page
 			return @download_page unless @download_page.nil?
-			Log.info "Downloading download page"
 			begin
 				@download_page = open(@url+'/download').read
 			rescue
@@ -35,23 +33,19 @@ module Spigoter
 		def download_url
 			return @download_url unless @download_url.nil?
 			download_page
-			Log.info "Parsing download url"
 			@download_url = /(?<download_url>http:\/\/addons.curse.cursecdn.com.+\.jar)/.match(@download_page)[:download_url]
 		end
 		def version
 			return @version unless @version.nil?
 			main_page
-			Log.info "Getting version"
 			@version = /Newest File: (?<version>.+)</.match(@main_page)[:version]
 		end
 		def name
 			return @name unless @name.nil?
-			Log.info "Getting name"
 			@name = /minecraft\/(?<name>.+)/.match(@url)[:name]
 		end
 		def download
 			download_url
-			Log.info "Downloading"
 			begin
 				file = open(@download_url).read
 			rescue
