@@ -12,3 +12,4 @@
 ._.DS_Store
 ._*
 coverage
+Gemfile.lock
