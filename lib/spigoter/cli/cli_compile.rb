@@ -1,7 +1,11 @@
 module Spigoter
 	module CLI
-		def self.compile(opts)
+		@@compile = lambda do |opts|
 			puts opts
+		end
+
+		def self.compile
+			return @@compile
 		end
 	end
 end

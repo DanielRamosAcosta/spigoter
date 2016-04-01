@@ -1,12 +1,16 @@
 module Spigoter
 	module CLI
-		def self.start(opts)
+		@@start = lambda do |opts|
 			unless which('java').nil?
 				Log.info "Starting the server!"
-				system("java #{opts[:javaparm]}")
+				system("java #{opts[:javaparm]} -jar spigot.jar")
 			else
 				Log.error "You don't have java in PATH"
 			end
+		end
+
+		def self.start
+			return @@start
 		end
 
 		def self.which(cmd)

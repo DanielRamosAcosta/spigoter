@@ -31,7 +31,7 @@ Dynmap:
 			end
 			it "With default parameters, " do
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
-				Spigoter::CLI.update(opts)
+				Spigoter::CLI.update.call(opts)
 				expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
 				expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
 				expect(File.open("plugins/Dynmap.jar").size).to be_within(10000).of(4102422)
@@ -39,12 +39,12 @@ Dynmap:
 			it "If no plugins.yml is found, exit with 1" do
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
 				FileUtils.rm('plugins.yml')
-				expect{Spigoter::CLI.update(opts)}.to raise_error SystemExit
+				expect{Spigoter::CLI.update.call(opts)}.to raise_error SystemExit
 			end
 			it "If no plugins dir is found, exit with 1" do
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
 				FileUtils.rm_rf('plugins')
-				expect{Spigoter::CLI.update(opts)}.to raise_error SystemExit
+				expect{Spigoter::CLI.update.call(opts)}.to raise_error SystemExit
 			end
 			it "It has to log an error if type is unknown" do
 				yml = File.open("plugins.yml", 'wb')
@@ -54,7 +54,7 @@ Authme:
   type: "aksjdhaksjd"')
 				yml.close
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
-				Spigoter::CLI.update(opts)
+				Spigoter::CLI.update.call(opts)
 				expect(@log_output.readline).to eq " INFO  Spigoter : Updating!\n"
 				expect(@log_output.readline).to eq " INFO  Spigoter : Starting to download Authme\n"
 				expect(@log_output.readline).to eq "ERROR  Spigoter : Unkown source aksjdhaksjd\n"

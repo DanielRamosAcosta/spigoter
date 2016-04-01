@@ -4,7 +4,7 @@ describe Spigoter::CLI do
 	describe "#main" do
 		describe "executing the server" do
 			it "With default parameters, " do
-				Spigoter::CLI.main({:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>false, :help=>false})
+				Spigoter::CLI.run('start')
 			end
 		end
 		describe "updating plugins" do
@@ -28,8 +28,8 @@ Dynmap:
 				FileUtils.rm_rf(Dir.glob("*"))
 				Dir.chdir('..')
 			end
-			it "With default parameters, " do
-				Spigoter::CLI.main({:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false})
+			it "With default parameters" do
+				Spigoter::CLI.run('update')
 				expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
 				expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
 				expect(File.open("plugins/Dynmap.jar").size).to be_within(10000).of(4102422)

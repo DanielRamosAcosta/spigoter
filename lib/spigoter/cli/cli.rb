@@ -1,22 +1,20 @@
 module Spigoter
 	module CLI
-		def self.main(opts)
-			Log.info "Estoy en la main, mi opts son: #{opts}"
-			if(opts[:update])
-				Spigoter::CLI.update(opts)
-				return
+		def self.run(command, opts={})
+			Run.new.exec[command].call(opts)
+		end
+		class Run
+			attr_reader :tasks
+			def initialize
+				@tasks = {
+					'update' => Spigoter::CLI.update,
+					'compile' => Spigoter::CLI.compile,
+					'start' => Spigoter::CLI.start
+				}
 			end
-			if(opts[:compile])
-				Spigoter::CLI.compile(opts)
-				return
+			def exec
+				@tasks
 			end
-			if(opts[:version])
-				puts "Hola!"
-				puts Spigoter::VERSION
-				puts Spigoter::VERSION.class
-				return
-			end
-			Spigoter::CLI.start(opts)
 		end
 	end
 end

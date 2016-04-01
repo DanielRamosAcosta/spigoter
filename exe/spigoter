@@ -1,24 +1,68 @@
 #!/usr/bin/env ruby
 
 require 'spigoter'
-require 'trollop'
+require 'optparse'
 
+options = {}
 
-opts = Trollop::options do
-	version "Spigoter v#{Spigoter::VERSION}"
-    banner <<-EOS
-Spigoter, a command line utity for minecraft servers.
+subtext = <<HELP
+COMMAND are:
+   start [options]    starts the server
+   update [options]   updates plugin
+   compile [options]  compiles spigot and replaces as the current version
 
-Usage:
-       spigoter [options]
-where [options] are:
-EOS
-    opt :javaparm, 'Sets the java parameters', :default => '-Xms1024M -Xmx4096M -jar spigot.jar' #TODO: Poner esto aqui
-	opt :compile, "Compiles spigot and sets the new version"
-	opt :update, "Set permissons plugin"
-	opt :version, "Get spigoter version"
+See '#{File.basename $0} COMMAND --help' for more information on a specific command.
+HELP
+
+global = OptionParser.new do |opts|
+    opts.banner = "Usage: opt.rb <COMMAND> [options]"
+    opts.separator ""
+    opts.separator subtext
 end
 
-puts "Estas son las opciones: #{opts}"
+subcommands = {
+    'init' => OptionParser.new do |opts|
+        opts.banner = "Usage: #{File.basename $0} init"
+        opts.separator "\nCreates a new spigoter.yml for you"
+    end,
+    'start' => OptionParser.new do |opts|
+        opts.banner = "Usage: #{File.basename $0} start [options]"
+        opts.separator "\nStarts the server"
+    end,
+    'update' => OptionParser.new do |opts|
+        opts.banner = "Usage: #{File.basename $0} update [options]"
+        opts.on("-l", "--list=[x,y,z]", Array, "list of plugins to update") do |par|
+            options[:list] = par
+        end
+        opts.on("-f", "--force", "forces to updates all plugins, even if no new version was found") do |par|
+            options[:force] = par
+        end
+        opts.separator "\nUpdates the plugins"
+    end,
+    'compile' => OptionParser.new do |opts|
+        opts.banner = "Usage: #{File.basename $0} update [options]"
+        opts.on("-v", "--version", String, "version of spigot to compile (lastest by default)") do |par|
+            options[:version] = par || 'lastest'
+        end
+        opts.separator "\nCompiles spigot and sets it as the current version"
+    end
+}
 
-Spigoter::CLI.main(opts)
+global.order!
+
+command = ARGV.shift
+
+begin
+    subcommands[command].order!
+rescue
+    Log.error "Unrecognized subcommand or param, do #{File.basename $0} --help"
+    exit(1)
+end
+
+
+puts "Command: #{command} "
+p options
+puts "ARGV:"
+p ARGV
+
+Spigoter::CLI::run(command, options)
