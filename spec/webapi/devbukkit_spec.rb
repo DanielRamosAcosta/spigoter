@@ -41,6 +41,7 @@ describe Spigoter::PluginBukkit do
 		end
 		it "if the plugin doesnt exists" do
 			expect{@unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
+			expect{@unk_plugin.download_page}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 			expect{@unk_plugin.version}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 		end
 		it "if there is no internet connection" do
