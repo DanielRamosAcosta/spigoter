@@ -2,7 +2,6 @@
 
 require 'spigoter'
 require 'trollop'
-require 'json'
 
 
 opts = Trollop::options do

@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     spigoter (0.2.0)
-      json (~> 1.8)
       logging (~> 2.1)
 
 GEM

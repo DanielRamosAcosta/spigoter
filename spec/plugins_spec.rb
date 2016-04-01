@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'fileutils'
-require 'json'
 
 
 describe Spigoter::Plugins do
