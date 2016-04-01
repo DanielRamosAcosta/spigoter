@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/DanielRamosAcosta/spigoter.svg?branch=master)](https://travis-ci.org/DanielRamosAcosta/spigoter) [![Coverage Status](https://coveralls.io/repos/github/DanielRamosAcosta/spigoter/badge.svg?branch=master)](https://coveralls.io/github/DanielRamosAcosta/spigoter?branch=master) [![Dependency Status](https://gemnasium.com/DanielRamosAcosta/spigoter.svg)](https://gemnasium.com/DanielRamosAcosta/spigoter) [![Gem Version](https://badge.fury.io/rb/spigoter.svg)](https://badge.fury.io/rb/spigoter)
 
 
-Spigoter is a Ruby gem that gives you many tools make your server keepup easier.
+Spigoter is a Ruby gem that gives you many tools in order to make your server keepup easier.
 
 ## Installation
 
@@ -57,6 +57,7 @@ Towny:
 #### Planned
 * [Spigot](https://www.spigotmc.org/)
 * Direct download
+* Manual
 * Custom download via piping (first download, second unrar, then extract X file, ...)
 
 ### Compile Spigot and set version
