@@ -10,6 +10,12 @@ module Spigoter
 				Spigoter::CLI.compile(opts)
 				return
 			end
+			if(opts[:version])
+				puts "Hola!"
+				puts Spigoter::VERSION
+				puts Spigoter::VERSION.class
+				return
+			end
 			Spigoter::CLI.start(opts)
 		end
 	end

@@ -5,6 +5,7 @@ require 'trollop'
 
 
 opts = Trollop::options do
+	version "Spigoter v#{Spigoter::VERSION}"
     banner <<-EOS
 Spigoter, a command line utity for minecraft servers.
 
@@ -15,7 +16,9 @@ EOS
     opt :javaparm, 'Sets the java parameters', :default => '-Xms1024M -Xmx4096M -jar spigot.jar' #TODO: Poner esto aqui
 	opt :compile, "Compiles spigot and sets the new version"
 	opt :update, "Set permissons plugin"
+	opt :version, "Get spigoter version"
 end
 
+puts "Estas son las opciones: #{opts}"
 
 Spigoter::CLI.main(opts)
