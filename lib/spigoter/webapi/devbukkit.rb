@@ -27,11 +27,8 @@ module Spigoter
 			main_page
 			Log.info "Downloading download page"
 			url_download_page = @main_page.match(/<a href="(?<download_page_url>.+)">Download/)[:download_page_url]
-			begin
-				@download_page = open("http://dev.bukkit.org/#{url_download_page}").read
-			rescue
-				raise "404 Error, that plugin URL doesn't exists"
-			end
+			@download_page = open("http://dev.bukkit.org/#{url_download_page}").read
+			# Don't need to begin-rescue, it's done by main_page
 			return @download_page
 		end
 		def download_url

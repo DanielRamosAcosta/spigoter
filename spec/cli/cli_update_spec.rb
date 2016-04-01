@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rspec/logging_helper'
 
 describe Spigoter::CLI do
 	describe "#update" do
@@ -56,6 +57,25 @@ describe Spigoter::CLI do
 				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
 				FileUtils.rm_rf('plugins')
 				expect{Spigoter::CLI.update(opts)}.to raise_error SystemExit
+			end
+			it "It has to log an error if type is unknown" do
+				json = File.open("plugins.json", 'wb')
+				json.write('
+					[
+						{
+							"name": "Authme",
+				    		"url": "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded",
+				    		"type": "what?",
+				    		"last_update": "31-3-2016 - 0:40"
+				  		}
+					]
+				')
+				json.close
+				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
+				Spigoter::CLI.update(opts)
+				expect(@log_output.readline).to eq " INFO  Spigoter : Updating!\n"
+				expect(@log_output.readline).to eq " INFO  Spigoter : Getting plugin Authme\n"
+				expect(@log_output.readline).to eq "ERROR  Spigoter : Unkown source what?\n"
 			end
 		end
 	end
