@@ -20,53 +20,36 @@ gem install spigoter
     spigoter {-u|--update} {all|plugin1,plugin2,...}
 
 ### Usage
-You have to drop a `plugin.json` file in the server root directory. There will be saved some relevant information of plugins, as well as some customization.
+You have to drop a `plugin.yml` file in the server root directory. There will be saved some relevant information of plugins, as well as some customization.
 
-Example:
+Basic example:
 
-```json
-[
-  {
-    "name": "Authme",
-    "url": "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded",
-    "type": "curse",
-    "last_update": "31-3-2016 - 0:40"
-  },
-  {
-    "name": "BossShop",
-    "url": "http://mods.curse.com/bukkit-plugins/minecraft/bossshop",
-    "type": "curse",
-    "last_update": "31-3-2016 - 0:40"
-  },
-  {
-    "name": "ChestShop",
-    "url": "https://www.spigotmc.org/resources/1-9-chestshop.19511/",
-    "type": "spigotmc",
-    "last_update": "31-3-2016 - 0:40"
-  },
-  {
-    "name": "ChopTree",
-    "url": "https://www.spigotmc.org/resources/choptree.2046/",
-    "type": "spigotmc",
-    "last_update": "31-3-2016 - 0:40"
-  },
-  {
-    "name": "ClickSort",
-    "url": "http://mods.curse.com/bukkit-plugins/minecraft/clicksort",
-    "type": "curse",
-    "last_update": "31-3-2016 - 0:40"
-  },
-  {
-    "name": "Dynmap",
-    "url": "http://dev.bukkit.org/media/files/911/888/dynmap-2.3-alpha-1.jar",
-    "type": "direct",
-    "keep_eye_on": "http://dev.bukkit.org/bukkit-plugins/dynmap/files/",
-    "last_update": "31-3-2016 - 0:40"
-  }
-]
+```yml
+Authme:
+  type: curse
+  url: "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded"
+ChopTree:
+  type: spigotmc
+  url: "https://www.spigotmc.org/resources/choptree.2046/"
+Dynmap:
+  type: devbukkit
+  url: "http://dev.bukkit.org/bukkit-plugins/dynmap/"
+Essentials:
+  type: direct
+  url: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/lastSuccessfulBuild/artifact/Essentials/target/Essentials-2.x-SNAPSHOT.jar"
+  keep_eye_on: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/"
+EssentialsChat:
+  type: direct
+  url: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/lastSuccessfulBuild/artifact/EssentialsChat/target/EssentialsChat-2.x-SNAPSHOT.jar"
+Multiverse-core:
+  keep_eye_on: "http://mods.curse.com/bukkit-plugins/minecraft/multiverse-core"
+  type: direct
+  url: "http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/Multiverse-Core-2.5.jar"
+Towny:
+  type: manual
+  url: "http://palmergames.com"
 ```
 
-I'm trying to switch to YAML.
 #### Currently suported plugin hosted sites
 * [Curse](http://mods.curse.com/bukkit-plugins/minecraft)
 * [BukkitDev](http://dev.bukkit.org/)
