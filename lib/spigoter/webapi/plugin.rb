@@ -3,6 +3,7 @@ require 'logging'
 
 module Spigoter
 	class Plugin
+		include Spigoter::Utils
 		def initialize(website)
 			@url = website # Url of the plugin
 			@main_page     # Mainpage content
@@ -10,6 +11,7 @@ module Spigoter
 			@download_page # Content of the download page
 			@download_url  # Download url of the plugin
 			@regexp        # Regexp that matches the URL
+			@file          # Where the file is stored
 		end
 		def main_page
 			return @main_page unless @main_page.nil?
@@ -20,14 +22,10 @@ module Spigoter
 			end
 			return @main_page
 		end
-		def download
+		def file
+			return @file unless @file.nil?
 			download_url
-			begin
-				file = open(@download_url).read
-			rescue
-				raise "Can't download file for #{name}, #{@download_url}, check internet?"
-			end
-			return file
+			@file = download(@download_url)
 		end
 	end
 end

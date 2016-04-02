@@ -32,20 +32,16 @@ describe Spigoter::PluginCurse do
 			expect(@plugin.download_url).to eq("http://addons.curse.cursecdn.com/files/588/781/Multiverse-Core-2.4.jar")
 		end
 	end
-	describe "#download" do
-		it "we can download the plugin" do
+	describe "#file" do
+		it "we can the plugin as a file" do
 			file = File.open("tmp/plugin.jar", "wb")
-			downloaded = @plugin.download
+			downloaded = @plugin.file
 			file.write(downloaded)
 			expect(file.size).to be_within(10000).of(325808)
 		end
 		it "if the plugin doesnt exists" do
-			expect{@unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
+			expect{@unk_plugin.file}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 			expect{@unk_plugin.version}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
-		end
-		it "if there is no internet connection" do
-			allow(@plugin).to receive(:open).and_raise(SocketError)
-			expect{@plugin.download}.to raise_error(RuntimeError, "Can't download file for multiverse-core, http://addons.curse.cursecdn.com/files/588/781/Multiverse-Core-2.4.jar, check internet?")
 		end
 		after :all do
 			FileUtils.rm "tmp/plugin.jar"

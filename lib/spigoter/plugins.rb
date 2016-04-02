@@ -4,9 +4,9 @@ module Spigoter
 			f = nil
 			case data['type']
 				when 'curse'
-					f = Spigoter::PluginCurse.new(data['url']).download
+					f = Spigoter::PluginCurse.new(data['url']).file
 				when 'devbukkit'
-					f = Spigoter::PluginBukkit.new(data['url']).download
+					f = Spigoter::PluginBukkit.new(data['url']).file
 				else
 					raise "Unkown source"
 			end

@@ -35,18 +35,14 @@ describe Spigoter::PluginBukkit do
 	describe "#download" do
 		it "we can download the plugin" do
 			file = File.open("tmp/plugin.jar", "wb")
-			downloaded = @plugin.download
+			downloaded = @plugin.file
 			file.write(downloaded)
 			expect(file.size).to be_within(10000).of(4094534)
 		end
 		it "if the plugin doesnt exists" do
-			expect{@unk_plugin.download}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
+			expect{@unk_plugin.file}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 			expect{@unk_plugin.download_page}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
 			expect{@unk_plugin.version}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
-		end
-		it "if there is no internet connection" do
-			allow(@plugin).to receive(:open).and_raise(SocketError)
-			expect{@plugin.download}.to raise_error(RuntimeError, "Can't download file for dynmap, http://dev.bukkit.org/media/files/888/859/dynmap-2.2.jar, check internet?")
 		end
 		after :all do
 			FileUtils.rm "tmp/plugin.jar"
