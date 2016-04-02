@@ -52,7 +52,7 @@ guard :rspec, cmd: "bundle exec rspec" do
     file_changed = m.first.sub("lib/spigoter/", "").sub(".rb", "")
     "spec/#{file_changed}_spec.rb"
   end
-  watch(/exe\/spigoter/) do |m|
+  watch(/exe\/spigoter/) do
     "spec/cli_spec.rb"
   end
 
