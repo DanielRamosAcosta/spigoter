@@ -1,6 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'coveralls'
-require 'spigoter'
 require 'logging'
 require 'rspec/logging_helper'
 require "codeclimate-test-reporter"
@@ -14,3 +13,5 @@ RSpec.configure do |config|
 	include RSpec::LoggingHelper
   	config.capture_log_messages
 end
+
+require 'spigoter'

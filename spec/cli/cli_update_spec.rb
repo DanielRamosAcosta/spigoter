@@ -30,21 +30,24 @@ Dynmap:
 				FileUtils.rm_rf(Dir.glob("*"))
 			end
 			it "With default parameters, " do
-				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
-				Spigoter::CLI.update.call(opts)
+				Spigoter::CLI.update.call({})
 				expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
 				expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
 				expect(File.open("plugins/Dynmap.jar").size).to be_within(10000).of(4102422)
 			end
+			it "With a list with specific plugins, " do
+				Spigoter::CLI.update.call({:list=>["Authme", "BossShop"]})
+				expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
+				expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
+				expect(File.exist?("plugins/Dynmap.jar")).to be false
+			end
 			it "If no plugins.yml is found, exit with 1" do
-				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
 				FileUtils.rm('plugins.yml')
-				expect{Spigoter::CLI.update.call(opts)}.to raise_error SystemExit
+				expect{Spigoter::CLI.update.call({})}.to raise_error SystemExit
 			end
 			it "If no plugins dir is found, exit with 1" do
-				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
 				FileUtils.rm_rf('plugins')
-				expect{Spigoter::CLI.update.call(opts)}.to raise_error SystemExit
+				expect{Spigoter::CLI.update.call({})}.to raise_error SystemExit
 			end
 			it "It has to log an error if type is unknown" do
 				yml = File.open("plugins.yml", 'wb')
@@ -53,8 +56,7 @@ Authme:
   url: "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded"
   type: "aksjdhaksjd"')
 				yml.close
-				opts = {:javaparm=>"-Xms1024M -Xmx4096M -jar spigot.jar", :compile=>false, :update=>true, :help=>false, :update_given=>true}
-				Spigoter::CLI.update.call(opts)
+				Spigoter::CLI.update.call({})
 				expect(@log_output.readline).to eq " INFO  Spigoter : Updating!\n"
 				expect(@log_output.readline).to eq " INFO  Spigoter : Starting to download Authme\n"
 				expect(@log_output.readline).to eq "ERROR  Spigoter : Unkown source aksjdhaksjd\n"

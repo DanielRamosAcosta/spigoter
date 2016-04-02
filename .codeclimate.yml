@@ -9,8 +9,12 @@ engines:
     enabled: true
   rubocop:
     enabled: true
+    exclude_paths:
+    - spec/
+    - Guardfile
 ratings:
   paths:
   - "lib/**.rb"
 exclude_paths:
 - spec/
+- Guardfile
