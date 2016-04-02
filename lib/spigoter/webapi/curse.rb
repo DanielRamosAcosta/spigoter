@@ -2,24 +2,11 @@ require 'open-uri'
 require 'logging'
 
 module Spigoter
-	class PluginCurse
+	class PluginCurse < Plugin
 		def initialize(website)
-			@url = website # Url of the plugin
-			@main_page     # Mainpage content
-			@name          # Name of the plugin
-			@download_page # Content of the download page
-			@download_url  # Download url of the plugin
+			super(website)
 
 			raise "Bad URL #{@url}" if @url.match(/^http:\/\/mods.curse.com\/bukkit-plugins\/minecraft\/[a-z\-]+$/).nil?
-		end
-		def main_page
-			return @main_page unless @main_page.nil?
-			begin
-				@main_page = open(@url).read
-			rescue
-				raise "404 Error, that plugin URL doesn't exists"
-			end
-			return @main_page
 		end
 		def download_page
 			return @download_page unless @download_page.nil?
@@ -43,15 +30,6 @@ module Spigoter
 		def name
 			return @name unless @name.nil?
 			@name = /minecraft\/(?<name>.+)/.match(@url)[:name]
-		end
-		def download
-			download_url
-			begin
-				file = open(@download_url).read
-			rescue
-				raise "Can't download file for #{name}, #{@download_url}, check internet?"
-			end
-			return file
 		end
 	end
 end
