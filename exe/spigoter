@@ -7,9 +7,9 @@ options = {}
 
 subtext = <<HELP
 COMMAND are:
-   start [options]    starts the server
-   update [options]   updates plugin
-   compile [options]  compiles spigot and replaces as the current version
+    start [options]    starts the server
+    update [options]   updates plugin
+    compile [options]  compiles spigot and replaces as the current version
 
 See '#{File.basename $0} COMMAND --help' for more information on a specific command.
 HELP

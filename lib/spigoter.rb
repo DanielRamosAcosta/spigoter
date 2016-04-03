@@ -12,5 +12,5 @@ require 'spigoter/cli/cli_start'
 require 'spigoter/cli/cli_init'
 
 module Spigoter
-  # Your code goes here...
+    # Your code goes here...
 end

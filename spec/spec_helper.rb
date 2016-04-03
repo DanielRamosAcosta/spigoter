@@ -10,8 +10,8 @@ CodeClimate::TestReporter.start
 # logs will be stored in the @log_output variable. It is a StringIO instance.
 
 RSpec.configure do |config|
-	include RSpec::LoggingHelper
-  	config.capture_log_messages
+    include RSpec::LoggingHelper
+    config.capture_log_messages
 end
 
 require 'spigoter'
