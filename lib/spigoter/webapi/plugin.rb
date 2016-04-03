@@ -3,7 +3,6 @@ require 'logging'
 
 module Spigoter
 	class Plugin
-		include Spigoter::Utils
 		def initialize(website)
 			@url = website # Url of the plugin
 			#@main_page     # Mainpage content
@@ -24,7 +23,7 @@ module Spigoter
 		end
 		def file
 			return @file unless @file.nil?
-			@file = download(download_url) # download_url is implemented in child class
+			@file = Spigoter::Utils.download(download_url) # download_url is implemented in child class
 		end
 	end
 end

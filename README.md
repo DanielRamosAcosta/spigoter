@@ -18,12 +18,12 @@ gem install spigoter
 ## Features
 
 ### Run the server
-    spigoter [--javaparam="-Xms1024M -Xmx4096M ..."]
+    spigoter start
 
 ### Update plugins
-    spigoter {-u|--update} {all|plugin1,plugin2,...}
+    spigoter update [--list=plugin1,plugin2,...]
 
-### Usage
+#### Usage
 You have to drop a `plugin.yml` file in the server root directory. There will be saved some relevant information of plugins, as well as some customization.
 
 Basic example:
@@ -64,8 +64,8 @@ Towny:
 * Manual
 * Custom download via piping (first download, second unrar, then extract X file, ...)
 
-### Compile Spigot and set version
-    spigoter {-c|--compile} [lastest|1.9|1.8|...]
+### Update Spigot's version
+    spigoter compile [--version={1.9|1.8|...}]
 
 This command excecute the `buildtools .jar` in a `build`directory in the root server folder. Then, it'll replace the old version with the new one.
 

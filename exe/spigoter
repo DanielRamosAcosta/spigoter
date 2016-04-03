@@ -15,9 +15,13 @@ See '#{File.basename $0} COMMAND --help' for more information on a specific comm
 HELP
 
 global = OptionParser.new do |opts|
-    opts.banner = "Usage: opt.rb <COMMAND> [options]"
+    opts.banner = "Usage: #{File.basename $0} <COMMAND> [options]"
     opts.separator ""
     opts.separator subtext
+    opts.on_tail("-v", "--version", "Show version information about this program and quit.") do
+        puts "Spigoter v#{Spigoter::VERSION}"
+        exit
+    end
 end
 
 subcommands = {
@@ -26,7 +30,7 @@ subcommands = {
         opts.separator "\nCreates a new spigoter.yml for you"
     end,
     'start' => OptionParser.new do |opts|
-        opts.banner = "Usage: #{File.basename $0} start [options]"
+        opts.banner = "Usage: #{File.basename $0} start"
         opts.separator "\nStarts the server"
     end,
     'update' => OptionParser.new do |opts|
@@ -41,8 +45,8 @@ subcommands = {
     end,
     'compile' => OptionParser.new do |opts|
         opts.banner = "Usage: #{File.basename $0} update [options]"
-        opts.on("-v", "--version", String, "version of spigot to compile (lastest by default)") do |par|
-            options[:version] = par || 'lastest'
+        opts.on("-v", "--version version", "version of spigot to compile (lastest by default)") do |par|
+            options[:version] = par
         end
         opts.separator "\nCompiles spigot and sets it as the current version"
     end
@@ -59,10 +63,9 @@ rescue
     exit(1)
 end
 
-
-puts "Command: #{command} "
-p options
-puts "ARGV:"
-p ARGV
+#puts "Command: #{command} "
+#p options
+#puts "ARGV:"
+#p ARGV
 
 Spigoter::CLI::run(command, options)

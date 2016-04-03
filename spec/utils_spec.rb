@@ -1,22 +1,23 @@
 require "spec_helper"
 require "fileutils"
 
-class DummyClass
-end
-
 describe Spigoter::Utils do
-	before :each do
-		@dummy_class = DummyClass.new
-		@dummy_class.extend(Spigoter::Utils)
-	end
 	describe "#download" do
 		it "It downloads the file correctly" do
-			file = @dummy_class.download('http://example.com')
+			file = Spigoter::Utils.download('http://example.com')
 			expect(file.size).to be_within(100).of(1270)
 		end
 		it "If there is no internet, then raise an error" do
-			allow(@dummy_class).to receive(:open).and_raise(SocketError)
-			expect{@dummy_class.download('http://example.com')}.to raise_error(RuntimeError, "Can't download anything from http://example.com, check internet?")
+			allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
+			expect{Spigoter::Utils.download('http://example.com')}.to raise_error(RuntimeError, "Can't download anything from http://example.com, check internet?")
+		end
+	end
+	describe "#which" do
+		it "If that program exists, then true" do
+			expect(Spigoter::Utils.which('cat')).to eq '/bin/cat'
+		end
+		it "In other case, false" do
+			expect(Spigoter::Utils.which('catasdasd')).to be nil
 		end
 	end
 end
