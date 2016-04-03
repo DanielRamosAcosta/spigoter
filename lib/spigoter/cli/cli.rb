@@ -10,7 +10,8 @@ module Spigoter
 				@task = {
 					'update' => Spigoter::CLI.update,
 					'compile' => Spigoter::CLI.compile,
-					'start' => Spigoter::CLI.start
+					'start' => Spigoter::CLI.start,
+					'init' => Spigoter::CLI.init
 				}
 			end
 		end
