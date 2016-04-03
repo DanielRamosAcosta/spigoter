@@ -1,6 +1,7 @@
 # Spigoter
 
-[![Gem Version](https://img.shields.io/gem/v/spigoter.svg?style=flat-square)](https://badge.fury.io/rb/spigoter)
+[![Gem Version](https://img.shields.io/gem/v/spigoter.svg?style=flat-square)](https://rubygems.org/gems/spigoter)
+[![Gem Downloads](https://img.shields.io/gem/dt/spigoter.svg?style=flat-square)](https://rubygems.org/gems/spigoter)
 [![Build Status](https://img.shields.io/travis/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://travis-ci.org/DanielRamosAcosta/spigoter)
 [![Coverage Status](https://img.shields.io/coveralls/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://coveralls.io/github/DanielRamosAcosta/spigoter?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/github/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://codeclimate.com/github/DanielRamosAcosta/spigoter)
