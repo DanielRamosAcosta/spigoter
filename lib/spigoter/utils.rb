@@ -45,8 +45,11 @@ module Spigoter
             opts = {} if opts.nil?
             opts['Spigoter'] = {} if opts['Spigoter'].nil?
             opts = Spigoter::Utils::symbolize(opts['Spigoter'])
+            default_opts(opts)
+        end
 
-            opts[:build_dir] = 'build' if opts[:build].nil?
+        def self.default_opts(opts)
+            opts[:build_dir] = 'build' if opts[:build_dir].nil?
             opts[:plugins_dir] = 'plugins' if opts[:plugins_dir].nil?
             opts[:javaparams] = '-Xms1G -Xmx2G' if opts[:javaparams].nil?
             opts[:spigot_version] = Spigoter::SPIGOT_VERSION if opts[:spigot_version].nil?

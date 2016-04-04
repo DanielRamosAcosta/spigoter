@@ -27,7 +27,7 @@ module Spigoter
         end
 
         def self.list
-            hash = {
+            return {
                 :curse => Spigoter::PluginCurse,
                 :devbukkit => Spigoter::PluginBukkit
             }

@@ -168,4 +168,44 @@ describe Spigoter::Utils do
             end
         end
     end
+    describe "#default_opts" do
+        context "if we have an empty hash" do
+            it "returns the hash with the default opts setted" do
+                expect(Spigoter::Utils.default_opts({})).to eq({
+                    :build_dir=>"build",
+                    :plugins_dir=>"plugins",
+                    :javaparams=>"-Xms1G -Xmx2G",
+                    :spigot_version => Spigoter::SPIGOT_VERSION
+                })
+            end
+        end
+        context "if we have a partial hash" do
+            it "returns the hash with the default opts and the customs setted" do
+                expect(Spigoter::Utils.default_opts({
+                    :build_dir=>"bld",
+                    :plugins_dir=>"plg",
+                })).to eq({
+                    :build_dir=>"bld",
+                    :plugins_dir=>"plg",
+                    :javaparams=>"-Xms1G -Xmx2G",
+                    :spigot_version => Spigoter::SPIGOT_VERSION
+                })
+            end
+        end
+        context "if we have a hash with all the settigns" do
+            it "returns the same hash" do
+                expect(Spigoter::Utils.default_opts({
+                    :build_dir=>"bld",
+                    :plugins_dir=>"plg",
+                    :javaparams=>"-Xms1G -Xmx2G -d64",
+                    :spigot_version => "1.8"
+                })).to eq({
+                    :build_dir=>"bld",
+                    :plugins_dir=>"plg",
+                    :javaparams=>"-Xms1G -Xmx2G -d64",
+                    :spigot_version => "1.8"
+                })
+            end
+        end
+    end
 end
