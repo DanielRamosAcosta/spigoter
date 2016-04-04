@@ -3,26 +3,26 @@ require "fileutils"
 
 describe Spigoter::Utils do
     describe "#download" do
-        it "It downloads the file correctly" do
+        xit "It downloads the file correctly" do
             file = Spigoter::Utils.download('http://example.com')
             expect(file.size).to be_within(100).of(1270)
         end
-        it "If there is no internet, then raise an error" do
+        xit "If there is no internet, then raise an error" do
             allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
             expect{Spigoter::Utils.download('http://example.com')}.to raise_error(RuntimeError, "Can't download anything from http://example.com, check internet?")
         end
     end
     describe "#which" do
-        it "If that program exists, then true" do
+        xit "If that program exists, then true" do
             expect(Spigoter::Utils.which('cat')).to eq '/bin/cat'
         end
-        it "In other case, false" do
+        xit "In other case, false" do
             expect(Spigoter::Utils.which('catasdasd')).to be nil
         end
     end
 
     describe "#symbolize!" do
-        it "Given an hash with strings as keys, it has to convert to symbols" do
+        xit "Given an hash with strings as keys, it has to convert to symbols" do
             hash = {
                 'something' => 'dummy',
                 'Other' => 26,
@@ -56,10 +56,10 @@ describe Spigoter::Utils do
             FileUtils.rm_rf(Dir.glob("*"))
         end
 
-        it "If there is no spigoter.yml log error and exit" do
+        xit "If there is no spigoter.yml log error and exit" do
             expect{Spigoter::Utils.fill_opts_config}.to raise_error RuntimeError, "spigoter.yml doesn't exists, do 'spigoter init'"
         end
-        it "With some params missing, it has to fill them" do
+        xit "With some params missing, it has to fill them" do
             config = {
                 'Spigoter' => {
                     'build_dir' => 'build',

@@ -29,27 +29,27 @@ Dynmap:
             after :each do
                 FileUtils.rm_rf(Dir.glob("*"))
             end
-            it "With default parameters, " do
+            xit "With default parameters, " do
                 Spigoter::CLI.update.call({})
                 expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
                 expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
                 expect(File.open("plugins/Dynmap.jar").size).to be_within(10000).of(4102422)
             end
-            it "With a list with specific plugins, " do
+            xit "With a list with specific plugins, " do
                 Spigoter::CLI.update.call({:list=>["Authme", "BossShop"]})
                 expect(File.open("plugins/Authme.jar").size).to be_within(10000).of(1796785)
                 expect(File.open("plugins/BossShop.jar").size).to be_within(10000).of(195800)
                 expect(File.exist?("plugins/Dynmap.jar")).to be false
             end
-            it "If no plugins.yml is found, exit with 1" do
+            xit "If no plugins.yml is found, exit with 1" do
                 FileUtils.rm('plugins.yml')
                 expect{Spigoter::CLI.update.call({})}.to raise_error SystemExit
             end
-            it "If no plugins dir is found, exit with 1" do
+            xit "If no plugins dir is found, exit with 1" do
                 FileUtils.rm_rf('plugins')
                 expect{Spigoter::CLI.update.call({})}.to raise_error SystemExit
             end
-            it "Log an error if type is Unkown" do
+            xit "Log an error if type is Unkown" do
                 yml = File.open("plugins.yml", 'wb')
                 yml.write('
 Authme:
