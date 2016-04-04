@@ -149,12 +149,15 @@ describe Spigoter::Utils do
             end
             context "if there are missing some rows" do
                 before :each do
-                    FileUtils.touch('spigoter.yml')
+                    open('spigoter.yml', 'w+') { |f|
+                        f << "---\n"
+                        f << "Spigoter:\n"
+                    }
                 end
                 after :each do
                     FileUtils.rm('spigoter.yml')
                 end
-                xit "return a hash with the keys filled with the missing columns" do
+                it "return a hash with the keys filled with the missing columns" do
                     expect(Spigoter::Utils.fill_opts_config).to eq({
                         :build_dir=>"build",
                         :plugins_dir=>"plugins",

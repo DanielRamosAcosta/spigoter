@@ -1,51 +1,55 @@
 require "spec_helper"
 require "fileutils"
 
-describe Spigoter::PluginBukkit do
-    before :all do
-        #@plugin = Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/dynmap/")
-        #@unk_plugin = Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/asdasdwawdasdqawdas/")
+describe Spigoter::PluginBukkit, "#initialize" do
+    context "with a valid URL" do
+        it "creates the object" do
+            pln = Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/paintingswitch/")
+            expect(pln.class.to_s).to eq("Spigoter::PluginBukkit")
+        end
+        context "but without an internet connection" do
+            before :each do
+                allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
+            end
+            it "raises an error" do
+                expect{Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/paintingswitch/")}
+                .to raise_error "Can't download anything from http://dev.bukkit.org/bukkit-plugins/paintingswitch/, check internet or URL?"
+            end
+        end
     end
-    describe "#initialize" do
-        xit "with a website" do
-            Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/dynmap/")
+    context "with a wrong URL" do
+        it "raises an error" do
+            expect{Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins")}
+            .to raise_error "Bad URL http://dev.bukkit.org/bukkit-plugins"
         end
-        xit "if is a wrong URL, raise error" do
-            expect{Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins")}.to raise_error "Bad URL http://dev.bukkit.org/bukkit-plugins"
+        it "raises an error" do
+            expect{Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/????????")}
+            .to raise_error "Bad URL http://dev.bukkit.org/bukkit-plugins/????????"
         end
-        xit "if is a wrong URL, raise error" do
-            expect{Spigoter::PluginCurse.new("http://dev.bukkit.org/bukkit-plugins/????")}.to raise_error "Bad URL http://dev.bukkit.org/bukkit-plugins/????"
+        it "raises an error" do
+            expect{Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/unknownplugin/")}
+            .to raise_error "Can't download anything from http://dev.bukkit.org/bukkit-plugins/unknownplugin/, check internet or URL?"
         end
+    end
+end
+
+describe Spigoter::PluginBukkit do
+    before :each do
+        @plugin = Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/paintingswitch/")
     end
     describe "#version" do
-        xit "right now, dynmap version is v2.2" do
-            expect(@plugin.version).to eq("v2.2")
+        it "returns current version" do
+            expect(@plugin.version).to eq("neoPaintingSwitch 1.371")
         end
     end
     describe "#name" do
-        xit "we can get the plugin\"s name" do
-            expect(@plugin.name).to eq("dynmap")
+        it "returns the plugin name" do
+            expect(@plugin.name).to eq("neoPaintingSwitch")
         end
     end
-    describe "#download_url" do
-        xit "we can get the download url" do
-            expect(@plugin.download_url).to eq("http://dev.bukkit.org/media/files/888/859/dynmap-2.2.jar")
-        end
-    end
-    describe "#download" do
-        xit "we can download the plugin" do
-            file = File.open("tmp/plugin.jar", "wb")
-            downloaded = @plugin.file
-            file.write(downloaded)
-            expect(file.size).to be_within(10000).of(4094534)
-        end
-        xit "if the plugin doesnt exists" do
-            expect{@unk_plugin.file}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
-            expect{@unk_plugin.download_page}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
-            expect{@unk_plugin.version}.to raise_error(RuntimeError, "404 Error, that plugin URL doesn't exists")
-        end
-        after :all do
-            #FileUtils.rm "tmp/plugin.jar"
+    describe "#file" do
+        it "returns the file (myPlugin.jar)" do
+            expect(@plugin.file.size).to be_within(10000).of(13173) #+-1M from the original, if the author updates the plugin...
         end
     end
 end

@@ -38,11 +38,9 @@ module Spigoter
         end
 
         def self.fill_opts_config
-            begin
-                opts = loadyaml('spigoter.yml')
-            rescue
-                raise "spigoter.yml doesn't exists, do 'spigoter init'"
-            end
+            raise "spigoter.yml doesn't exists, do 'spigoter init'" unless File.exist?('spigoter.yml')
+
+            opts = loadyaml('spigoter.yml')
 
             opts = {} if opts.nil?
             opts['Spigoter'] = {} if opts['Spigoter'].nil?
