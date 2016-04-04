@@ -1,17 +1,22 @@
 require 'spec_helper'
 
-
 describe Log do
-    xit "Se debe poder llamar al Log con informacion" do
-        Log.info "Informacion"
+    it "Se debe poder llamar al Log con informacion" do
+        silence_stream(STDOUT) do
+            Log.info "Informacion"
+        end
         expect(@log_output.readline).to eq " INFO  Spigoter : Informacion\n"
     end
-    xit "Se debe poder llamar al Log con avisos" do
-        Log.warn "Aviso"
+    it "Se debe poder llamar al Log con avisos" do
+        silence_stream(STDOUT) do
+            Log.warn "Aviso"
+        end
         expect(@log_output.readline).to eq " WARN  Spigoter : Aviso\n"
     end
-    xit "Se debe poder llamar al Log con errores" do
-        Log.error "Error"
+    it "Se debe poder llamar al Log con errores" do
+        silence_stream(STDOUT) do
+            Log.error "Error"
+        end
         expect(@log_output.readline).to eq "ERROR  Spigoter : Error\n"
     end
 end
