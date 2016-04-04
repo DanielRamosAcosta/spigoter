@@ -18,9 +18,19 @@ module Spigoter
             @main_page = Spigoter::Utils.download(@url)
             return @main_page
         end
+        def download_url
+            @url # Dummy method, just to test
+        end
         def file
             return @file unless @file.nil?
             @file = Spigoter::Utils.download(download_url) # download_url is implemented in child class
+        end
+
+        def self.list
+            hash = {
+                :curse => Spigoter::PluginCurse,
+                :devbukkit => Spigoter::PluginBukkit
+            }
         end
     end
 end
