@@ -4,9 +4,8 @@ require 'logging'
 module Spigoter
     class PluginCurse < Plugin
         def initialize(website)
+            raise "Bad URL #{website}" if website.match(/^http:\/\/mods.curse.com\/bukkit-plugins\/minecraft\/[a-z\-]+$/).nil?
             super(website)
-
-            raise "Bad URL #{@url}" if @url.match(/^http:\/\/mods.curse.com\/bukkit-plugins\/minecraft\/[a-z\-]+$/).nil?
         end
         def download_page
             return @download_page unless @download_page.nil?
@@ -24,12 +23,13 @@ module Spigoter
         end
         def version
             return @version unless @version.nil?
-            main_page
             @version = /Newest File: (?<version>.+)</.match(@main_page)[:version]
         end
         def name
             return @name unless @name.nil?
-            @name = /minecraft\/(?<name>.+)/.match(@url)[:name]
+            @name = /Main Title -->\s*<H2 >\s*(?<name>.+)<\/H2>/.match(@main_page)[:name]
         end
+
+        private :download_page, :download_url
     end
 end

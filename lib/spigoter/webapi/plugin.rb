@@ -11,6 +11,7 @@ module Spigoter
             #@download_url  # Download url of the plugin
             #@regexp        # Regexp that matches the URL
             #@file          # Where the file is stored
+            main_page #preload main_page
         end
         def main_page
             return @main_page unless @main_page.nil?
