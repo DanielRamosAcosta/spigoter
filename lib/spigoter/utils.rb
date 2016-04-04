@@ -6,7 +6,7 @@ module Spigoter
             begin
                 file = open(url).read
             rescue
-                raise "Can't download anything from #{url}, check internet?"
+                raise "Can't download anything from #{url}, check internet or URL?"
             end
             return file
         end

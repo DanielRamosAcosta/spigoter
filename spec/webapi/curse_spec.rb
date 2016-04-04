@@ -7,16 +7,26 @@ describe Spigoter::PluginCurse, "#initialize" do
             pln = Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus")
             expect(pln.class.to_s).to eq("Spigoter::PluginCurse")
         end
+        context "without an internet connection" do
+            it "raise error" do
+                allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
+                expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus")}
+                .to raise_error "Can't download anything from http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus, check internet or URL?"
+            end
+        end
     end
     context "with wrong URL" do
         it "raise error" do
-            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins")}.to raise_error "Bad URL http://mods.curse.com/bukkit-plugins"
+            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins")}
+            .to raise_error "Bad URL http://mods.curse.com/bukkit-plugins"
         end
         it "raise error" do
-            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/????")}.to raise_error "Bad URL http://mods.curse.com/bukkit-plugins/minecraft/????"
+            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/????")}
+            .to raise_error "Bad URL http://mods.curse.com/bukkit-plugins/minecraft/????"
         end
         it "raise error" do
-            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/unknownplugin")}.to raise_error "404 Error, that plugin URL doesn't exists"
+            expect{Spigoter::PluginCurse.new("http://mods.curse.com/bukkit-plugins/minecraft/unknownplugin")}
+            .to raise_error "Can't download anything from http://mods.curse.com/bukkit-plugins/minecraft/unknownplugin, check internet or URL?"
         end
     end
 end

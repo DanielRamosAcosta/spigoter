@@ -15,11 +15,7 @@ module Spigoter
         end
         def main_page
             return @main_page unless @main_page.nil?
-            begin
-                @main_page = open(@url).read
-            rescue
-                raise "404 Error, that plugin URL doesn't exists"
-            end
+            @main_page = Spigoter::Utils.download(@url)
             return @main_page
         end
         def file

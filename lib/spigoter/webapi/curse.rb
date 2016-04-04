@@ -9,11 +9,7 @@ module Spigoter
         end
         def download_page
             return @download_page unless @download_page.nil?
-            begin
-                @download_page = open(@url+'/download').read
-            rescue
-                raise "404 Error, that plugin URL doesn't exists"
-            end
+            @download_page = Spigoter::Utils.download(@url+'/download')
             return @download_page
         end
         def download_url
