@@ -11,6 +11,16 @@ module Spigoter
             return file
         end
 
+        def self.loadyaml(path)
+            raise "File #{path} doesn't exists" unless File.exist?(path)
+            opts = YAML.load(File.open(path).read)
+            if opts.class != Hash
+                raise "Malformed YAML file #{path}"
+            else
+                return opts
+            end
+        end
+
         def self.which(cmd)
             # http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby
             exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
@@ -28,8 +38,11 @@ module Spigoter
         end
 
         def self.fill_opts_config
-            raise "spigoter.yml doesn't exists, do 'spigoter init'" unless File.exist?('spigoter.yml')
-            opts = YAML.load(File.open('spigoter.yml').read)
+            begin
+                opts = loadyaml('spigoter.yml')
+            rescue
+                raise "spigoter.yml doesn't exists, do 'spigoter init'"
+            end
 
             opts = {} if opts.nil?
             opts['Spigoter'] = {} if opts['Spigoter'].nil?
