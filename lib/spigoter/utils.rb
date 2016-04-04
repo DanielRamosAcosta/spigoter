@@ -22,5 +22,24 @@ module Spigoter
             end
             return nil
         end
+
+        def self.symbolize(hash)
+            return hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        end
+
+        def self.fill_opts_config
+            raise "spigoter.yml doesn't exists, do 'spigoter init'" unless File.exist?('spigoter.yml')
+            opts = YAML.load(File.open('spigoter.yml').read)
+
+            opts = {} if opts.nil?
+            opts['Spigoter'] = {} if opts['Spigoter'].nil?
+            opts = Spigoter::Utils::symbolize(opts['Spigoter'])
+
+            opts[:build_dir] = 'build' if opts[:build].nil?
+            opts[:plugins_dir] = 'plugins' if opts[:plugins_dir].nil?
+            opts[:javaparams] = '-Xms1G -Xmx2G' if opts[:javaparams].nil?
+            opts[:spigot_version] = Spigoter::SPIGOT_VERSION if opts[:spigot_version].nil?
+            return opts
+        end
     end
 end

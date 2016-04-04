@@ -17,7 +17,7 @@ describe Spigoter::CLI do
                 plugins_data = YAML.load(File.read('plugins.yml'))
                 config_data = YAML.load(File.read('spigoter.yml'))
                 expect(plugins_data).to eq({'Plugins'=> nil})
-                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G"}})
+                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
             end
             it "If there are already plugins, add those to plugins.yml" do
                 Dir.mkdir('plugins')
@@ -29,7 +29,7 @@ describe Spigoter::CLI do
                 plugins_data = YAML.load(File.read('plugins.yml'))
                 config_data = YAML.load(File.read('spigoter.yml'))
                 expect(plugins_data).to eq({"Plugins"=>{"Dynmap"=>nil, "AuthMe"=>nil, "Vault"=>nil, "Essentials"=>nil}})
-                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G"}})
+                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
             end
             it "If plugins.yml already exists, log a warning" do
                 File.open('plugins.yml', 'w')

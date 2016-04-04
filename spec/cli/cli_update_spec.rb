@@ -49,7 +49,7 @@ Dynmap:
                 FileUtils.rm_rf('plugins')
                 expect{Spigoter::CLI.update.call({})}.to raise_error SystemExit
             end
-            it "It has to log an error if type is unknown" do
+            it "Log an error if type is Unkown" do
                 yml = File.open("plugins.yml", 'wb')
                 yml.write('
 Authme:

@@ -30,7 +30,8 @@ module Spigoter
                     'Spigoter' => {
                         'build_dir' => 'build',
                         'plugins_dir' => 'plugins',
-                        'javaparams' => '-Xms1G -Xmx2G'
+                        'javaparams' => '-Xms1G -Xmx2G',
+                        'spigot_version' => Spigoter::SPIGOT_VERSION
                     }
                 }
                 yml = File.open("spigoter.yml", 'wb')
@@ -41,7 +42,7 @@ module Spigoter
                 plugins = {'Plugins' => {}}
                 default_data = {
                     'type_replace' => "whet",
-                    'url_replace' => "lulz",
+                    'url_replace' => "lulz"
                 }
                 if Dir.exist?('plugins')
                     Dir['plugins/*.jar'].each do |plg|
