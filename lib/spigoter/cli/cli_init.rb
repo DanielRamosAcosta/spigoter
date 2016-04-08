@@ -9,7 +9,7 @@ module Spigoter
                     main(opts)
                 end
             end
-            def self.main(opts = {})
+            def self.main(*)
                 if(File.exist?('spigoter.yml'))
                     Log.warn "spigoter.yml alredy exists"
                 else
