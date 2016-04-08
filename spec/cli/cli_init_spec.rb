@@ -1,46 +1,59 @@
 require 'spec_helper'
 
-describe Spigoter::CLI do
-    describe "#init" do
-        before :all do
-            Dir.chdir('tmp')
+describe Spigoter::CLI, "#init" do
+    after :each do
+        FileUtils.rm("plugins.yml")
+        FileUtils.rm("spigoter.yml")
+    end
+    context "by default" do
+        it "writes spigot.yml and plugins.yml and populates them" do
+            Spigoter::CLI.run('init')
+            plugins_data = YAML.load(File.read('plugins.yml'))
+            config_data = YAML.load(File.read('spigoter.yml'))
+            expect(plugins_data).to eq({'Plugins'=> nil})
+            expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
+            system("cat plugins.yml")
+        end
+    end
+    context "if detects plugins in plugins dir, it adds them to the plugins.yml" do
+        before :each do
+            Dir.mkdir('plugins')
+            File.open('plugins/AuthMe.jar', 'w')
+            File.open('plugins/Dynmap.jar', 'w')
+            File.open('plugins/Vault.jar', 'w')
+            File.open('plugins/Essentials.jar', 'w')
         end
         after :each do
-            FileUtils.rm_rf(Dir.glob("*"))
+            FileUtils.rm_rf("plugins")
         end
-        after :all do
-            Dir.chdir('..')
+        it "If there are already plugins, add those to plugins.yml" do
+            Spigoter::CLI.run('init')
+            plugins_data = YAML.load(File.read('plugins.yml'))
+            config_data = YAML.load(File.read('spigoter.yml'))
+            expect(plugins_data).to eq({"Plugins"=>{"Dynmap"=>nil, "AuthMe"=>nil, "Vault"=>nil, "Essentials"=>nil}})
+            expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
         end
-        describe "When init is called" do
-            xit "It has to create the correct spigot.yml and plugins.yml" do
+    end
+    context "if plugins.yml already exists" do
+        before :each do
+            File.open('plugins.yml', 'w')
+        end
+        it "log a warning" do
+            silence_stream(STDOUT) do
                 Spigoter::CLI.run('init')
-                plugins_data = YAML.load(File.read('plugins.yml'))
-                config_data = YAML.load(File.read('spigoter.yml'))
-                expect(plugins_data).to eq({'Plugins'=> nil})
-                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
             end
-            xit "If there are already plugins, add those to plugins.yml" do
-                Dir.mkdir('plugins')
-                File.open('plugins/AuthMe.jar', 'w')
-                File.open('plugins/Dynmap.jar', 'w')
-                File.open('plugins/Vault.jar', 'w')
-                File.open('plugins/Essentials.jar', 'w')
+            expect(@log_output.readline).to eq " WARN  Spigoter : plugins.yml alredy exists\n"
+        end
+    end
+    context "if spigoter.yml already exists" do
+        before :each do
+            File.open('spigoter.yml', 'w')
+        end
+        it "If spigoter.yml already exists, log a warning" do
+            silence_stream(STDOUT) do
                 Spigoter::CLI.run('init')
-                plugins_data = YAML.load(File.read('plugins.yml'))
-                config_data = YAML.load(File.read('spigoter.yml'))
-                expect(plugins_data).to eq({"Plugins"=>{"Dynmap"=>nil, "AuthMe"=>nil, "Vault"=>nil, "Essentials"=>nil}})
-                expect(config_data).to eq({"Spigoter"=>{"build_dir"=>"build", "plugins_dir"=>"plugins", "javaparams"=>"-Xms1G -Xmx2G", "spigot_version"=>"latest"}})
             end
-            xit "If plugins.yml already exists, log a warning" do
-                File.open('plugins.yml', 'w')
-                Spigoter::CLI.run('init')
-                expect(@log_output.readline).to eq " WARN  Spigoter : plugins.yml alredy exists\n"
-            end
-            xit "If spigoter.yml already exists, log a warning" do
-                File.open('spigoter.yml', 'w')
-                Spigoter::CLI.run('init')
-                expect(@log_output.readline).to eq " WARN  Spigoter : spigoter.yml alredy exists\n"
-            end
+            expect(@log_output.readline).to eq " WARN  Spigoter : spigoter.yml alredy exists\n"
         end
     end
 end

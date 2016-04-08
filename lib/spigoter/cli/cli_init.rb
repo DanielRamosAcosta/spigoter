@@ -10,33 +10,26 @@ module Spigoter
                 end
             end
             def self.main(opts = {})
-                plugins, spigoter = false, false
-                plugins = true if File.exist?('plugins.yml')
-                spigoter = true if File.exist?('spigoter.yml')
-
-                if(spigoter)
+                if(File.exist?('spigoter.yml'))
                     Log.warn "spigoter.yml alredy exists"
                 else
                     generate_spigoter
                 end
-                if(plugins)
+                if(true if File.exist?('plugins.yml'))
                     Log.warn "plugins.yml alredy exists"
                 else
                     generate_plugins
                 end
             end
             def self.generate_spigoter
-                config = {
-                    'Spigoter' => {
-                        'build_dir' => 'build',
-                        'plugins_dir' => 'plugins',
-                        'javaparams' => '-Xms1G -Xmx2G',
-                        'spigot_version' => Spigoter::SPIGOT_VERSION
-                    }
+                open('spigoter.yml', 'w+') { |f|
+                    f << "---\n"
+                    f << "Spigoter:\n"
+                    f << "  build_dir: build\n"
+                    f << "  plugins_dir: plugins\n"
+                    f << "  javaparams: \"-Xms1G -Xmx2G\"\n"
+                    f << "  spigot_version: latest\n"
                 }
-                yml = File.open("spigoter.yml", 'wb')
-                yml.write(config.to_yaml)
-                yml.close
             end
             def self.generate_plugins
                 plugins = {'Plugins' => {}}
