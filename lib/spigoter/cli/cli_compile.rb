@@ -10,12 +10,11 @@ module Spigoter
                 end
             end
             def self.main(opts = {})
-                #FIXME Arreglar todo este desastre
                 validate_deps
 
                 begin
                     opts = Spigoter::Utils.fill_opts_config
-                rescue Exception => e
+                rescue
                     Log.error e.message
                     exit(1)
                 end
@@ -23,6 +22,7 @@ module Spigoter
                 Log.info "Compiling Spigot!"
                 FileUtils.mkdir_p 'build'
                 Dir.chdir('build')
+
                 unless File.exist?('BuildTools.jar')
                     file = Spigoter::Utils.download('https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar')
                     File.open('BuildTools.jar', 'wb').write(file)
