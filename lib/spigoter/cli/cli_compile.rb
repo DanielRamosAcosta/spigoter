@@ -10,6 +10,7 @@ module Spigoter
                 end
             end
             def self.main(opts = {})
+                #FIXME Arreglar todo este desastre
                 validate_deps
 
                 begin
