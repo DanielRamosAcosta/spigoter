@@ -32,28 +32,25 @@ module Spigoter
                 }
             end
             def self.generate_plugins
-                plugins = {'Plugins' => {}}
-                default_data = {
-                    'type_replace' => "whet",
-                    'url_replace' => "lulz"
-                }
-                if Dir.exist?('plugins')
-                    Dir['plugins/*.jar'].each do |plg|
-                        plugins['Plugins'][File.basename(plg).gsub(/.jar/, "")] = {
-                            'type_replace' => "#{plg}",
-                            'url_replace' => "lulz",
-                        }
-                    end
+                if Dir.exist?('plugins') and !Dir['plugins/*.jar'].empty?
+                    open('plugins.yml', 'w+') { |f|
+                        f << "---\n"
+                        f << "Plugins:\n"
+                        Dir['plugins/*.jar'].each do |plg|
+                            f << "  #{File.basename(plg).gsub(/.jar/, "")}:\n"
+                            f << "    # type: {curse|devbukkit|....}\n"
+                            f << "    # url: http://something.com\n"
+                        end
+                    }
                 else
-                    plugins['Plugins']['Test'] = default_data
+                    open('plugins.yml', 'w+') { |f|
+                        f << "---\n"
+                        f << "Plugins:\n"
+                        f << "  # Plugin1:\n"
+                        f << "    # type: {curse|devbukkit|....}\n"
+                        f << "    # url: http://something.com\n"
+                    }
                 end
-                plugins = plugins.to_yaml
-                plugins = plugins.gsub(/type_replace:.+/, "# type: {curse|devbukkit|....}")
-                plugins = plugins.gsub(/url_replace:.+/, "# url: http://something.com")
-                plugins = plugins.gsub(/Test:/, "# Plugin1:")
-                yml = File.open("plugins.yml", 'wb')
-                yml.write(plugins)
-                yml.close
             end
         end
     end
