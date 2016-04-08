@@ -1,41 +1,47 @@
 require 'spec_helper'
 
-describe Spigoter::CLI do
-    describe "#compile" do
-        before :all do
-            Dir.chdir('tmp')
-        end
+describe Spigoter::CLI, "#compile" do
+    before :all do
+        Dir.chdir('tmp')
+    end
+    after :all do
+        Dir.chdir('..')
+    end
+    context "if exists spigoter.yml and java and git are in PATH" do
         before :each do
-            #Spigoter::CLI::Init.main
-            FileUtils.rm_rf(Dir.glob("spigot.jar"))
+            Spigoter::CLI::Init.main
         end
-        after :all do
-            FileUtils.rm_rf(Dir.glob("*"))
-            Dir.chdir('..')
+        after :each do
+            FileUtils.rm_f("plugins.yml")
+            FileUtils.rm_f("spigoter.yml")
+            FileUtils.rm_rf("build")
         end
-        describe "When is compiled with default parameters" do
-            xit "It has to create the latest spigot.jar" do
+        it "It has to create the latest spigot.jar" do
+            silence_stream(STDOUT) do
                 Spigoter::CLI::Compile.main
-                expect(File.exist?('spigot.jar')).to be true
             end
-            xit "If BuildTools.jar alredy exists, it skips the download" do
-                allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
-                # If there is a BuildTools.jar alredy, it shouldnt fail if there is no internet
-                expect{Spigoter::Utils.download('http://humanstxt.org/humans.txt')}.to raise_error(RuntimeError, "Can't download anything from http://humanstxt.org/humans.txt, check internet?")
-                Spigoter::CLI::Compile.main
-                expect(File.exist?('spigot.jar')).to be true
-            end
+            expect(File.exist?('spigot.jar')).to be true
         end
     end
 
-    describe "#validate_deps" do
-        xit "If java and git exists, continue the execution" do
-            expect(Spigoter::CLI::Compile.validate_deps).to be true
+    context "if there isn't a spigoter.yml" do
+        it "aborts the execution" do
+            silence_stream(STDOUT) do
+                expect{Spigoter::CLI::Compile.main}.to raise_error SystemExit
+            end
+            expect(@log_output.readline).to eq "ERROR  Spigoter : spigoter.yml doesn't exists, do 'spigoter init'\n"
         end
-        xit "If java or git doesn't exists, abort the execution" do
+    end
+
+    context "If java or git doesn't exists" do
+        before :each do
             allow(Spigoter::Utils).to receive(:which).and_return(nil)
-            expect{Spigoter::CLI::Compile.validate_deps}.to raise_error SystemExit
-            expect(@log_output.readline).to eq "ERROR  Spigoter : You don't have java or git in PATH\n"
+        end
+        it "aborts the execution" do
+            silence_stream(STDOUT) do
+                expect{Spigoter::CLI::Compile.validate_deps}.to raise_error SystemExit
+            end
+            expect(@log_output.readline).to eq "ERROR  Spigoter : You don't have javac or git in PATH\n"
         end
     end
 end

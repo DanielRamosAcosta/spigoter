@@ -29,15 +29,19 @@ module Spigoter
 
                 FileUtils.rm_rf(Dir.glob('spigot*.jar'))
                 Log.info "Compiling spigot version #{opts[:spigot_version]}"
-                system("java -jar BuildTools.jar --rev #{opts[:spigot_version]}")
+                exit_status = system("java -jar BuildTools.jar --rev #{opts[:spigot_version]}")
+
+                if(exit_status != true)
+                    raise "There was an error while compiling Spigot"
+                end
 
                 Dir.chdir('..')
                 FileUtils.cp(Dir['build/spigot*.jar'].first, 'spigot.jar')
             end
 
             def self.validate_deps
-                if Spigoter::Utils.which('java').nil? or Spigoter::Utils.which('git').nil?
-                    Log.error "You don't have java or git in PATH"
+                if Spigoter::Utils.which('javac').nil? or Spigoter::Utils.which('git').nil?
+                    Log.error "You don't have javac or git in PATH"
                     exit(1)
                 end
                 return true
