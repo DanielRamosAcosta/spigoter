@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe Spigoter::CLI, "#init" do
+    before :all do
+        Dir.chdir('tmp')
+    end
+    after :all do
+        FileUtils.rm_rf(Dir.glob("*"))
+        Dir.chdir('..')
+    end
     after :each do
         FileUtils.rm("plugins.yml")
         FileUtils.rm("spigoter.yml")
