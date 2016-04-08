@@ -29,7 +29,7 @@ describe Spigoter::CLI, "#compile" do
             silence_stream(STDOUT) do
                 expect{Spigoter::CLI::Compile.main}.to raise_error SystemExit
             end
-            expect(@log_output.readline).to eq "ERROR  Spigoter : spigoter.yml doesn't exists, do 'spigoter init'\n"
+            expect(@log_output.readline).to eq "ERROR  Spigoter : There is an error in spigoter.yml\n"
         end
     end
 

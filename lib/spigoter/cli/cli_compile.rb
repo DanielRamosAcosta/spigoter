@@ -15,7 +15,7 @@ module Spigoter
                 begin
                     opts = Spigoter::Utils.fill_opts_config
                 rescue
-                    Log.error e.message
+                    Log.error "There is an error in spigoter.yml"
                     exit(1)
                 end
 
