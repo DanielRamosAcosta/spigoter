@@ -5,11 +5,11 @@ module Spigoter
         end
         module Compile
             def self.compile
-                return lambda do |opts|
-                    main(opts)
+                return lambda do |*|
+                    main
                 end
             end
-            def self.main(opts = {})
+            def self.main(*)
                 validate_deps
 
                 begin
@@ -33,7 +33,9 @@ module Spigoter
                 exit_status = system("java -jar BuildTools.jar --rev #{opts[:spigot_version]}")
 
                 if(exit_status != true)
-                    raise "There was an error while compiling Spigot"
+                    Log.error "There was an error while compiling Spigot"
+                    Dir.chdir('..')
+                    exit(1)
                 end
 
                 Dir.chdir('..')

@@ -18,9 +18,19 @@ describe Spigoter::CLI, "#compile" do
         end
         it "It has to create the latest spigot.jar" do
             silence_stream(STDOUT) do
-                Spigoter::CLI::Compile.main
+                Spigoter::CLI::Compile.compile.call
             end
             expect(File.exist?('spigot.jar')).to be true
+        end
+        context "but an error occurs while compiling spigot" do
+            before :each do
+                allow(Spigoter::CLI::Compile).to receive(:system).and_return(nil)
+            end
+            it "aborts the execution" do
+                silence_stream(STDOUT) do
+                    expect{Spigoter::CLI::Compile.compile.call}.to raise_error SystemExit
+                end
+            end
         end
     end
 
