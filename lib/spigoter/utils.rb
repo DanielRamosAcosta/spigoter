@@ -55,5 +55,30 @@ module Spigoter
             opts[:spigot_version] = Spigoter::SPIGOT_VERSION if opts[:spigot_version].nil?
             return opts
         end
+
+        def self.get_plugins(opts={})
+            raise "spigoter.yml doesn't exists, do 'spigoter init'" unless File.exist?('plugins.yml')
+
+            plugins_data = loadyaml('plugins.yml')['Plugins']
+            plugins_data = symbolize(plugins_data)
+
+            plugins_data.each do |key, plugin|
+                plugins_data[key] = symbolize(plugin)
+            end
+            list = plugins_data.keys # by default, list all plugins
+
+            unless opts[:list].nil?
+                unless opts[:list].empty?
+                    list = opts[:list] # If a list cames in opts, use it
+                    new_hash = {}
+                    list.each do |key|
+                        new_hash[key] = plugins_data[key]
+                    end
+                    plugins_data = new_hash
+                end
+            end
+
+            return list, plugins_data
+        end
     end
 end

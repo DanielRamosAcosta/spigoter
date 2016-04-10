@@ -5,7 +5,6 @@ describe Spigoter::CLI, "#init" do
         Dir.chdir('tmp')
     end
     after :all do
-        FileUtils.rm_rf(Dir.glob("*"))
         Dir.chdir('..')
     end
     after :each do

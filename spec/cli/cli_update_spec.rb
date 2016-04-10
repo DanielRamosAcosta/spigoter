@@ -7,24 +7,57 @@ describe Spigoter::CLI do
             Dir.chdir('tmp')
         end
         after :each do
-            FileUtils.rm_rf(Dir.glob("*"))
             Dir.chdir('..')
+        end
+        context "if plugins.yml exists" do
+            before :each do
+                open('plugins.yml', 'w+') { |f|
+                    f << "---\n"
+                    f << "Plugins:\n"
+                    f << "  FirstJoinPlus:\n"
+                    f << "    url: \"http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus\"\n"
+                    f << "    type: \"curse\"\n"
+                    f << "  NeoPaintingSwitch:\n"
+                    f << "    url: \"http://dev.bukkit.org/bukkit-plugins/paintingswitch\"\n"
+                    f << "    type: \"devbukkit\"\n"
+                }
+            end
+            after :each do
+                FileUtils.rm_rf('spigoter.yml')
+            end
+            context "and plugins dir exists" do
+                before :each do
+                    Dir.mkdir('plugins')
+                end
+                after :each do
+                    FileUtils.rm_rf('plugins')
+                end
+                context "when called with default parameters" do
+                    xit "It has to download those plugins" do
+                        Spigoter::CLI.update.call
+                        expect(File.open("plugins/FirstJoinPlus.jar").size).to be_within(10000).of(1796785)
+                        expect(File.open("plugins/NeoPaintingSwitch.jar").size).to be_within(10000).of(195800)
+                    end
+                end
+                context "when called with a list of plugins" do
+                end
+                context "with an error in spigoter.yml" do
+                    before :each do
+                        open('spigoter.yml', 'a+') { |f|
+                            f << "  CheeseMaker:\n"
+                            f << "    url: \"http://dev.bukkit.org/bukkit-plugins/cheesemaker/\"\n"
+                            f << "    type: \"ajlksdjhasjd\"\n"
+                        }
+                    end
+                end
+            end
+            context "but plugins dir doesn't" do
+            end
+        end
+        context "if plugins.yml doesn't exists" do
         end
         describe "updating all plugins" do
             before :each do
-                Dir.mkdir('plugins')
-                yml = File.open("plugins.yml", 'wb')
-                yml.write('
-Authme:
-  url: "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded"
-  type: "curse"
-BossShop:
-  url: "http://mods.curse.com/bukkit-plugins/minecraft/bossshop"
-  type: "curse"
-Dynmap:
-  url: "http://dev.bukkit.org/bukkit-plugins/dynmap/"
-  type: "devbukkit"')
-                yml.close
             end
             after :each do
                 FileUtils.rm_rf(Dir.glob("*"))

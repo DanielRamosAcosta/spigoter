@@ -76,20 +76,37 @@ describe Spigoter::Utils do
 
     describe "#symbolize" do
         context "if we have a hash with strings as symbols" do
-            before :each do
-                @hash = {
-                    'one' => [1, 2],
-                    'two' => [1, 2, 3],
-                    'four' => [1, 2, 3, 4]
-                }
+            context "with simple quotes" do
+                before :each do
+                    @hash = {
+                        'one' => [1, 2],
+                        'two' => [1, 2, 3],
+                        'four' => [1, 2, 3, 4]
+                    }
+                end
+                it "returns the hash with symbols" do
+                    symbolized = {
+                        :one => [1, 2],
+                        :two => [1, 2, 3],
+                        :four => [1, 2, 3, 4]
+                    }
+                    expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
+                end
             end
-            it "returns the hash with symbols" do
-                symbolized = {
-                    :one => [1, 2],
-                    :two => [1, 2, 3],
-                    :four => [1, 2, 3, 4]
-                }
-                expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
+            context "with double quotes" do
+                before :each do
+                    @hash = {
+                        "url"=>"http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus",
+                        "type"=>"curse"
+                    }
+                end
+                it "returns the hash with symbols" do
+                    symbolized = {
+                        :url => "http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus",
+                        :type => "curse"
+                    }
+                    expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
+                end
             end
         end
         context "if the hash has already symbols" do
@@ -205,6 +222,55 @@ describe Spigoter::Utils do
                     :javaparams=>"-Xms1G -Xmx2G -d64",
                     :spigot_version => "1.8"
                 })
+            end
+        end
+    end
+    describe "#get_plugins" do
+        context "if exists plugins.yml" do
+            before :all do
+                open('plugins.yml', 'w+') { |f|
+                    f << "---\n"
+                    f << "Plugins:\n"
+                    f << "  FirstJoinPlus:\n"
+                    f << "    url: \"http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus\"\n"
+                    f << "    type: \"curse\"\n"
+                    f << "  NeoPaintingSwitch:\n"
+                    f << "    url: \"http://dev.bukkit.org/bukkit-plugins/paintingswitch\"\n"
+                    f << "    type: \"devbukkit\"\n"
+                }
+            end
+            after :all do
+                FileUtils.rm_f("plugins.yml")
+            end
+            context "if called with default parameters" do
+                it "Returns the list of plugins, and its data" do
+                    list, data = Spigoter::Utils.get_plugins
+                    expect(list).to eq([:FirstJoinPlus, :NeoPaintingSwitch])
+                    expect(data).to eq({
+                        :FirstJoinPlus=>{
+                            :url=>"http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus",
+                            :type=>"curse"},
+                        :NeoPaintingSwitch=>{
+                            :url=>"http://dev.bukkit.org/bukkit-plugins/paintingswitch",
+                            :type=>"devbukkit"}
+                    })
+                end
+            end
+            context "if called with a list of plugins" do
+                it "Returns the list of plugins, and its data" do
+                    list, data = Spigoter::Utils.get_plugins({:list=>[:FirstJoinPlus]})
+                    expect(list).to eq([:FirstJoinPlus])
+                    expect(data).to eq({
+                        :FirstJoinPlus=>{
+                            :url=>"http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus",
+                            :type=>"curse"}
+                    })
+                end
+            end
+        end
+        context "if plugins.yml doesn't exist" do
+            it "raises an error" do
+                expect{Spigoter::Utils.get_plugins({:list=>[:FirstJoinPlus]})}.to raise_error(RuntimeError)
             end
         end
     end

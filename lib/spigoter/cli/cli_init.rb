@@ -5,8 +5,8 @@ module Spigoter
         end
         module Init
             def self.init
-                return lambda do |opts|
-                    main(opts)
+                return lambda do |*|
+                    main
                 end
             end
             def self.main(*)
