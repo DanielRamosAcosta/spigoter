@@ -13,7 +13,7 @@ module Spigoter
                 opts = {}
                 begin
                     opts = Spigoter::Utils.fill_opts_config
-                rescue Exception => e
+                rescue => e
                     Log.error e.message
                     exit(1)
                 end
