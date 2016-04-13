@@ -9,7 +9,7 @@ module Spigoter
         end
         def download_page
             return @download_page unless @download_page.nil?
-            url_download_page = @main_page.match(/<a href="(?<download_page_url>.+)">Download/)[:download_page_url]
+            url_download_page = @main_page.match(/"user-action user-action-download">\s+<a href="(?<download_page_url>.+)">Download/)[:download_page_url]
             @download_page = open("http://dev.bukkit.org/#{url_download_page}").read
         end
         def download_url

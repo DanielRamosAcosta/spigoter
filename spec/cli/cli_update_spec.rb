@@ -70,9 +70,24 @@ describe Spigoter::CLI do
                         expect(File.open("plugins/NeoPaintingSwitch.jar").size).to be_within(10000).of(13173)
                     end
                 end
+                context "if there is no internet" do
+                    before :each do
+                        allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
+                    end
+                    it "logs and error and continues" do
+                        silence_stream(STDOUT) do
+                            Spigoter::CLI.update.call
+                        end
+                        expect(@log_output.readline).to eq " INFO  Spigoter : Updating!\n"
+                        expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: FirstJoinPlus\n"
+                        expect(@log_output.readline).to eq "ERROR  Spigoter : Can't download anything from http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus, check internet or URL?\n"
+                        expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: NeoPaintingSwitch\n"
+                        expect(@log_output.readline).to eq "ERROR  Spigoter : Can't download anything from http://dev.bukkit.org/bukkit-plugins/paintingswitch, check internet or URL?\n"
+                    end
+                end
             end
             context "but plugins dir doesn't" do
-                it "logs and error and exit" do
+                it "logs and error and continue" do
                     silence_stream(STDOUT) do
                         expect{Spigoter::CLI.update.call}.to raise_error SystemExit
                     end

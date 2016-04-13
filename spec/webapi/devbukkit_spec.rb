@@ -53,3 +53,19 @@ describe Spigoter::PluginBukkit do
         end
     end
 end
+
+describe Spigoter::PluginBukkit do
+    before :each do
+        @plugin = Spigoter::PluginBukkit.new("http://dev.bukkit.org/bukkit-plugins/worldguard/")
+    end
+    describe "#version" do
+        it "returns current version" do
+            expect(@plugin.version).to eq("WorldGuard 6.1")
+        end
+    end
+    describe "#name" do
+        it "returns the plugin name" do
+            expect(@plugin.name).to eq("WorldGuard")
+        end
+    end
+end

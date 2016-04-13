@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/DanielRamosAcosta/spigoter"
   spec.license       = "MIT"
 
-  spec.required_ruby_version = '~> 2.2.4'
+  spec.required_ruby_version = '>= 2.2.4'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.

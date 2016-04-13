@@ -33,10 +33,16 @@ module Spigoter
                         exit(1)
                     end
 
-                    objeto = Spigoter::Plugin.list[data[:type].to_sym].new(data[:url])
+                    begin
+                        objeto = Spigoter::Plugin.list[data[:type].to_sym].new(data[:url])
+                    rescue => e
+                        Log.error e.message
+                    end
 
-                    File.open("plugins/#{name}.jar", 'w+b') do |f|
-                        f.write(objeto.file)
+                    if (!objeto.nil?)
+                        File.open("plugins/#{name}.jar", 'w+b') do |f|
+                            f.write(objeto.file)
+                        end
                     end
                 end
             end
