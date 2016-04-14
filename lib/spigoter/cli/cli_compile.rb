@@ -44,7 +44,9 @@ module Spigoter
       def self.download_buildtools
         unless File.exist?('BuildTools.jar')
           file = Spigoter::Utils.download('https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar')
-          File.open('BuildTools.jar', 'wb').write(file)
+          File.open('BuildTools.jar', 'wb') do |f|
+            f.write(file)
+          end
         end
       end
 

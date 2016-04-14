@@ -8,7 +8,7 @@ describe Spigoter::CLI do
       Spigoter::CLI::Compile.main unless File.exist?('spigot.jar')
     end
     after :all do
-      File.delete('plugins.yml') if File.exist?('plugins.yml')
+      File.delete('plugins.yml') if File.exist?('plugins.yml') # TODO: echarle un ojo a esto
       File.delete('spigoter.yml') if File.exist?('spigoter.yml')
       Dir.chdir('..')
     end
