@@ -1,5 +1,5 @@
-require "spigoter/version"
-require "spigoter/log/log"
+require 'spigoter/version'
+require 'spigoter/log/log'
 require 'spigoter/utils'
 require 'spigoter/webapi/plugin'
 require 'spigoter/webapi/curse'
@@ -11,5 +11,5 @@ require 'spigoter/cli/cli_start'
 require 'spigoter/cli/cli_init'
 
 module Spigoter
-    SPIGOT_VERSION = "latest"
+  SPIGOT_VERSION = 'latest'.freeze
 end
