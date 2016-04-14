@@ -8,7 +8,7 @@ require 'spigoter/webapi/spigot'
 #require 'spigoter/cli/cli'
 #require 'spigoter/cli/cli_update'
 require 'spigoter/cli/cli_compile'
-#require 'spigoter/cli/cli_start'
+require 'spigoter/cli/cli_start'
 require 'spigoter/cli/cli_init'
 
 module Spigoter
