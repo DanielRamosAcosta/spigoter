@@ -7,6 +7,7 @@ options = {}
 
 subtext = <<HELP
 COMMAND are:
+    init               creates the spigoter.yml and plugins.yml files
     start [options]    starts the server
     update [options]   updates plugin
     compile [options]  compiles spigot and replaces as the current version
@@ -27,7 +28,7 @@ end
 subcommands = {
   'init' => OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename $PROGRAM_NAME} init"
-    opts.separator "\nCreates a new spigoter.yml for you"
+    opts.separator "\nCreates a new spigoter.yml and plugins.yml for you"
   end,
   'start' => OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename $PROGRAM_NAME} start"
