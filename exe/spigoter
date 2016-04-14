@@ -68,4 +68,4 @@ end
 # puts "ARGV:"
 # p ARGV
 
-Spigoter::CLI.run(command, options)
+Spigoter::CLI.run(command).call(options)

@@ -2,8 +2,8 @@ module Spigoter
   # This module encloses all CLI commands.
   # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
   module CLI
-    def self.run(command, opts = {})
-      Run.new.task[command].call(opts)
+    def self.run(command)
+      Run.new.task[command]
     end
 
     # Class for running tasks.

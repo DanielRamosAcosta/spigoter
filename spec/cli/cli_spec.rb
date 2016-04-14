@@ -23,7 +23,9 @@ describe Spigoter::CLI::Run, '#tasks' do
       silence_stream(STDOUT) do
         @scl = Spigoter::CLI.init.source_location
       end
-      expect(@runner.task[@command].source_location).to eq @scl
+      silence_stream(STDOUT) do
+        expect(Spigoter::CLI.run(@command).source_location).to eq @scl
+      end
     end
   end
   context 'when the command is compile' do
@@ -34,7 +36,9 @@ describe Spigoter::CLI::Run, '#tasks' do
       silence_stream(STDOUT) do
         @scl = Spigoter::CLI.compile.source_location
       end
-      expect(@runner.task[@command].source_location).to eq @scl
+      silence_stream(STDOUT) do
+        expect(Spigoter::CLI.run(@command).source_location).to eq @scl
+      end
     end
   end
   context 'when the command is update' do
@@ -45,7 +49,9 @@ describe Spigoter::CLI::Run, '#tasks' do
       silence_stream(STDOUT) do
         @scl = Spigoter::CLI.update.source_location
       end
-      expect(@runner.task[@command].source_location).to eq @scl
+      silence_stream(STDOUT) do
+        expect(Spigoter::CLI.run(@command).source_location).to eq @scl
+      end
     end
   end
   context 'when the command is start' do
@@ -56,7 +62,9 @@ describe Spigoter::CLI::Run, '#tasks' do
       silence_stream(STDOUT) do
         @scl = Spigoter::CLI.start.source_location
       end
-      expect(@runner.task[@command].source_location).to eq @scl
+      silence_stream(STDOUT) do
+        expect(Spigoter::CLI.run(@command).source_location).to eq @scl
+      end
     end
   end
 end
