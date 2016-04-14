@@ -9,17 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Daniel Ramos"]
   spec.email         = ["danielramosacosta@hotmail.com"]
 
-  spec.summary       = %q{A CLI utility for Minecraft servers}
-  spec.description   = %q{A CLI utility for Minecraft servers}
-  spec.homepage      = "https://github.com/DanielRamosAcosta/spigoter"
+  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
+  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
-
-  spec.required_ruby_version = '>= 2.2.4'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
   else
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
@@ -30,15 +28,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 11.1"
-  spec.add_development_dependency "rspec", "~> 3.4"
-  spec.add_development_dependency "guard", "~> 2.13"
-  spec.add_development_dependency "guard-rspec", "~> 4.6"
-  spec.add_development_dependency "guard-bundler", "~> 2.1"
-  spec.add_development_dependency "coveralls", "~> 0.8"
-  spec.add_development_dependency "yard", "~> 0.8"
-  spec.add_development_dependency "codeclimate-test-reporter", "~> 0.5.0"
-  spec.add_development_dependency "rubocop", "~> 0.39.0"
-
-  spec.add_runtime_dependency "logging", "~> 2.1"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
 end

@@ -1,3 +1,3 @@
 module Spigoter
-  VERSION = '0.4.1'.freeze
+  VERSION = "0.1.0"
 end
