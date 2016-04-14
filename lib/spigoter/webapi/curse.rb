@@ -19,7 +19,7 @@ module Spigoter
       return @download_url unless @download_url.nil?
       download_page
       @download_url = %r{(?<download_url>http://addons\.curse\.cursecdn\.com.+\.jar)}
-                        .match(@download_page)[:download_url]
+                      .match(@download_page)[:download_url]
     end
 
     def version

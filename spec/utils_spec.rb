@@ -13,7 +13,7 @@ describe Spigoter::Utils do
       end
       it 'raises an error' do
         expect { Spigoter::Utils.download('http://example.com') }
-            .to raise_error(RuntimeError, "Can't download anything from http://example.com, check internet or URL?")
+          .to raise_error(RuntimeError, "Can't download anything from http://example.com, check internet or URL?")
       end
     end
   end
@@ -51,14 +51,14 @@ describe Spigoter::Utils do
         end
         it 'raises an error' do
           expect { Spigoter::Utils.loadyaml('spigoter.yml') }
-              .to raise_error 'Malformed YAML file spigoter.yml'
+            .to raise_error 'Malformed YAML file spigoter.yml'
         end
       end
     end
     context "if file doesn't exists" do
       it 'raises an error' do
         expect { Spigoter::Utils.loadyaml('spigoter.yml') }
-            .to raise_error(RuntimeError, "File spigoter.yml doesn't exists")
+          .to raise_error(RuntimeError, "File spigoter.yml doesn't exists")
       end
     end
   end
@@ -85,16 +85,16 @@ describe Spigoter::Utils do
       context 'with simple quotes' do
         before :each do
           @hash = {
-              'one' => [1, 2],
-              'two' => [1, 2, 3],
-              'four' => [1, 2, 3, 4]
+            'one' => [1, 2],
+            'two' => [1, 2, 3],
+            'four' => [1, 2, 3, 4]
           }
         end
         it 'returns the hash with symbols' do
           symbolized = {
-              one: [1, 2],
-              two: [1, 2, 3],
-              four: [1, 2, 3, 4]
+            one: [1, 2],
+            two: [1, 2, 3],
+            four: [1, 2, 3, 4]
           }
           expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
         end
@@ -102,14 +102,14 @@ describe Spigoter::Utils do
       context 'with double quotes' do
         before :each do
           @hash = {
-              'url' => 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
-              'type' => 'curse'
+            'url' => 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
+            'type' => 'curse'
           }
         end
         it 'returns the hash with symbols' do
           symbolized = {
-              url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
-              type: 'curse'
+            url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
+            type: 'curse'
           }
           expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
         end
@@ -118,16 +118,16 @@ describe Spigoter::Utils do
     context 'if the hash has already symbols' do
       before :each do
         @hash = {
-            one: [1, 2],
-            two: [1, 2, 3],
-            four: [1, 2, 3, 4]
+          one: [1, 2],
+          two: [1, 2, 3],
+          four: [1, 2, 3, 4]
         }
       end
       it 'returns the same hash' do
         symbolized = {
-            one: [1, 2],
-            two: [1, 2, 3],
-            four: [1, 2, 3, 4]
+          one: [1, 2],
+          two: [1, 2, 3],
+          four: [1, 2, 3, 4]
         }
         expect(Spigoter::Utils.symbolize(@hash)).to eq symbolized
       end
@@ -144,7 +144,7 @@ describe Spigoter::Utils do
     context 'if there is no spigoter.yml' do
       it 'raises an error' do
         expect { Spigoter::Utils.fill_opts_config }
-            .to raise_error RuntimeError, "spigoter.yml doesn't exists, do 'spigoter init'"
+          .to raise_error RuntimeError, "spigoter.yml doesn't exists, do 'spigoter init'"
       end
     end
     context 'if spigoter.yml exists' do
@@ -164,11 +164,11 @@ describe Spigoter::Utils do
         end
         it 'returns a hash with the options' do
           expect(Spigoter::Utils.fill_opts_config).to eq(
-                                                          build_dir: 'build',
-                                                          plugins_dir: 'plugins',
-                                                          javaparams: '-Xms1G -Xmx2G',
-                                                          spigot_version: '1.9.2'
-                                                      )
+            build_dir: 'build',
+            plugins_dir: 'plugins',
+            javaparams: '-Xms1G -Xmx2G',
+            spigot_version: '1.9.2'
+          )
         end
       end
       context 'if there are missing some rows' do
@@ -183,11 +183,11 @@ describe Spigoter::Utils do
         end
         it 'return a hash with the keys filled with the missing columns' do
           expect(Spigoter::Utils.fill_opts_config).to eq(
-                                                          build_dir: 'build',
-                                                          plugins_dir: 'plugins',
-                                                          javaparams: '-Xms1G -Xmx2G',
-                                                          spigot_version: Spigoter::SPIGOT_VERSION
-                                                      )
+            build_dir: 'build',
+            plugins_dir: 'plugins',
+            javaparams: '-Xms1G -Xmx2G',
+            spigot_version: Spigoter::SPIGOT_VERSION
+          )
         end
       end
     end
@@ -197,35 +197,35 @@ describe Spigoter::Utils do
     context 'if we have an empty hash' do
       it 'returns the hash with the default opts setted' do
         expect(Spigoter::Utils.default_opts({})).to eq(
-                                                        build_dir: 'build',
-                                                        plugins_dir: 'plugins',
-                                                        javaparams: '-Xms1G -Xmx2G',
-                                                        spigot_version: Spigoter::SPIGOT_VERSION
-                                                    )
+          build_dir: 'build',
+          plugins_dir: 'plugins',
+          javaparams: '-Xms1G -Xmx2G',
+          spigot_version: Spigoter::SPIGOT_VERSION
+        )
       end
     end
     context 'if we have a partial hash' do
       it 'returns the hash with the default opts and the customs setted' do
         expect(Spigoter::Utils.default_opts(build_dir: 'bld',
                                             plugins_dir: 'plg'))
-            .to eq(build_dir: 'bld',
-                   plugins_dir: 'plg',
-                   javaparams: '-Xms1G -Xmx2G',
-                   spigot_version: Spigoter::SPIGOT_VERSION
+          .to eq(build_dir: 'bld',
+                 plugins_dir: 'plg',
+                 javaparams: '-Xms1G -Xmx2G',
+                 spigot_version: Spigoter::SPIGOT_VERSION
                 )
       end
     end
     context 'if we have a hash with all the settigns' do
       it 'returns the same hash' do
         expect(
-            Spigoter::Utils.default_opts(build_dir: 'bld',
-                                         plugins_dir: 'plg',
-                                         javaparams: '-Xms1G -Xmx2G -d64',
-                                         spigot_version: '1.8'))
-            .to eq(build_dir: 'bld',
-                   plugins_dir: 'plg',
-                   javaparams: '-Xms1G -Xmx2G -d64',
-                   spigot_version: '1.8'
+          Spigoter::Utils.default_opts(build_dir: 'bld',
+                                       plugins_dir: 'plg',
+                                       javaparams: '-Xms1G -Xmx2G -d64',
+                                       spigot_version: '1.8'))
+          .to eq(build_dir: 'bld',
+                 plugins_dir: 'plg',
+                 javaparams: '-Xms1G -Xmx2G -d64',
+                 spigot_version: '1.8'
                 )
       end
     end
@@ -252,23 +252,23 @@ describe Spigoter::Utils do
         it 'Returns the list of plugins, and its data' do
           data = Spigoter::Utils.get_plugins
           expect(data).to eq(
-                              FirstJoinPlus: {
-                                  url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
-                                  type: :curse },
-                              NeoPaintingSwitch: {
-                                  url: 'http://dev.bukkit.org/bukkit-plugins/paintingswitch',
-                                  type: :devbukkit }
-                          )
+            FirstJoinPlus: {
+              url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
+              type: :curse },
+            NeoPaintingSwitch: {
+              url: 'http://dev.bukkit.org/bukkit-plugins/paintingswitch',
+              type: :devbukkit }
+          )
         end
       end
       context 'if called with a list of plugins' do
         it 'Returns the list of plugins, and its data' do
           data = Spigoter::Utils.get_plugins(list: [:FirstJoinPlus])
           expect(data).to eq(
-                              FirstJoinPlus: {
-                                  url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
-                                  type: :curse }
-                          )
+            FirstJoinPlus: {
+              url: 'http://mods.curse.com/bukkit-plugins/minecraft/firstjoinplus',
+              type: :curse }
+          )
         end
       end
     end

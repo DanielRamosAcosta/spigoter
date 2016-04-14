@@ -19,14 +19,13 @@ describe Spigoter::CLI, '#init' do
       plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
       config_data = Spigoter::Utils.loadyaml('spigoter.yml')
       expect(plugins_data).to eq('Plugins' => nil)
-      expect(config_data).to eq(
-                               'Spigoter' => {
-                                 'build_dir' => 'build',
-                                 'plugins_dir' => 'plugins',
-                                 'javaparams' => '-Xms1G -Xmx2G',
-                                 'spigot_version' => 'latest'
-                               }
-                             )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
+                                }
+                               )
     end
   end
   context 'if detects plugins in plugins dir with plugins inside' do
@@ -46,22 +45,20 @@ describe Spigoter::CLI, '#init' do
       end
       plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
       config_data = Spigoter::Utils.loadyaml('spigoter.yml')
-      expect(plugins_data).to eq(
-                                'Plugins'  => {
-                                  'Dynmap' => nil,
-                                  'AuthMe' => nil,
-                                  'Vault' => nil,
-                                  'Essentials' => nil
+      expect(plugins_data).to eq('Plugins'  => {
+                                   'Dynmap' => nil,
+                                   'AuthMe' => nil,
+                                   'Vault' => nil,
+                                   'Essentials' => nil
+                                 }
+                                )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
                                 }
-                              )
-      expect(config_data).to eq(
-                               'Spigoter' => {
-                                 'build_dir' => 'build',
-                                 'plugins_dir' => 'plugins',
-                                 'javaparams' => '-Xms1G -Xmx2G',
-                                 'spigot_version' => 'latest'
-                               }
-                             )
+                               )
     end
   end
   context 'if there is a plugins dir, but is empty' do
@@ -78,14 +75,13 @@ describe Spigoter::CLI, '#init' do
       plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
       config_data = Spigoter::Utils.loadyaml('spigoter.yml')
       expect(plugins_data).to eq('Plugins' => nil)
-      expect(config_data).to eq(
-                               'Spigoter' => {
-                                 'build_dir' => 'build',
-                                 'plugins_dir' => 'plugins',
-                                 'javaparams' => '-Xms1G -Xmx2G',
-                                 'spigot_version' => 'latest'
-                               }
-                             )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
+                                }
+                               )
     end
   end
   context 'if plugins.yml already exists' do

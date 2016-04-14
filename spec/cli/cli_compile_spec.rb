@@ -16,7 +16,7 @@ describe Spigoter::CLI, '#compile' do
     after :each do
       File.delete('plugins.yml')
       File.delete('spigoter.yml')
-      FileUtils.rm_f('build')
+      FileUtils.rm_r('build') if Dir.exist?('build')
     end
     it 'It has to create the latest spigot.jar' do
       silence_stream(STDOUT) do

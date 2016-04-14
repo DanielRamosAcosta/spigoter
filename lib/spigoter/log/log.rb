@@ -10,13 +10,13 @@ Logging.color_scheme('bright',
                      date: :blue,
                      logger: :cyan,
                      message: :magenta
-)
+                    )
 
 Logging.appenders.stdout('stdout',
                          layout: Logging.layouts.pattern(pattern: '[%l] %c: %m\n',
                                                          color_scheme: 'bright'
-                         )
-)
+                                                        )
+                        )
 
 # Module for logging all things, info warnings and errors.
 # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
