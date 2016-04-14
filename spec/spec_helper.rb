@@ -26,3 +26,18 @@ ensure
 end
 
 require 'spigoter'
+
+if Spigoter::Utils.which('javac').nil?
+  puts 'You must have installed JDK!'
+  exit(1)
+end
+
+if Spigoter::Utils.which('java').nil?
+  puts 'You must have installed JRE!'
+  exit(1)
+end
+
+if Spigoter::Utils.which('git').nil?
+  puts 'You must have installed Git!'
+  exit(1)
+end
