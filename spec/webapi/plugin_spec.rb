@@ -40,7 +40,8 @@ describe Spigoter::Plugin, '.list' do
   it 'returns a hash to all types of plugins' do
     expect(Spigoter::Plugin.list).to eq(
       curse: Spigoter::PluginCurse,
-      devbukkit: Spigoter::PluginBukkit
+      devbukkit: Spigoter::PluginBukkit,
+      spigot: Spigoter::PluginSpigot
     )
   end
 end

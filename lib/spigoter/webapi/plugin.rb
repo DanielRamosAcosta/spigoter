@@ -33,7 +33,8 @@ module Spigoter
     def self.list
       {
         curse: Spigoter::PluginCurse,
-        devbukkit: Spigoter::PluginBukkit
+        devbukkit: Spigoter::PluginBukkit,
+        spigot: Spigoter::PluginSpigot
       }
     end
   end

@@ -20,6 +20,9 @@ describe Spigoter::CLI do
           f << "  NeoPaintingSwitch:\n"
           f << "    url: \"http://dev.bukkit.org/bukkit-plugins/paintingswitch\"\n"
           f << "    type: \"devbukkit\"\n"
+          f << "  Nametags:\n"
+          f << "    url: \"https://www.spigotmc.org/resources/nametags.13119/\"\n"
+          f << "    type: \"spigot\"\n"
         end
       end
       after :each do
@@ -39,6 +42,7 @@ describe Spigoter::CLI do
             end
             expect(File.open('plugins/FirstJoinPlus.jar').size).to be_within(10_000).of(52_309)
             expect(File.open('plugins/NeoPaintingSwitch.jar').size).to be_within(10_000).of(13_173)
+            expect(File.open('plugins/Nametags.jar').size).to be_within(10_000).of(14_695)
           end
         end
         context 'when called with a list of plugins' do
@@ -64,6 +68,7 @@ describe Spigoter::CLI do
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating!\n"
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: FirstJoinPlus\n"
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: NeoPaintingSwitch\n"
+            expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: Nametags\n"
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: CheeseMaker\n"
             expect(@log_output.readline).to eq "ERROR  Spigoter : Plugin type ajlksdjhasjd doesn't exists!\n"
             expect(File.open('plugins/FirstJoinPlus.jar').size).to be_within(10_000).of(52_309)
