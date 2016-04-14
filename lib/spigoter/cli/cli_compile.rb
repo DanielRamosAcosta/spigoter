@@ -9,11 +9,11 @@ module Spigoter
     # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
     module Compile
       def self.compile
-        Log.info 'Compiling Spigot!'
         ->(*) { main }
       end
 
       def self.main(*)
+        Log.info 'Compiling Spigot!'
         dependencies
         opts = import_opts
 

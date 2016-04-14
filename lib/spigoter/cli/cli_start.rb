@@ -9,11 +9,11 @@ module Spigoter
     # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
     module Start
       def self.start
-        Log.info 'Starting the server!'
         ->(opts = {}) { main(opts) }
       end
 
       def self.main(opts)
+        Log.info 'Starting the server!'
         dependencies
         opts = {}
         begin

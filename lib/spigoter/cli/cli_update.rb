@@ -9,13 +9,12 @@ module Spigoter
     # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
     module Update
       def self.update
-        Log.info 'Updating!'
         ->(opts = {}) { main(opts) }
       end
 
       def self.main(opts = {})
+        Log.info 'Updating!'
         dependencies
-        # TODO: change utils to remove underscore
         plugins_data = Spigoter::Utils.get_plugins(opts)
 
         plugins_data.each do |name, data|

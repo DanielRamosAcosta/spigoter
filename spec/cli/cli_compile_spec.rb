@@ -9,7 +9,9 @@ describe Spigoter::CLI, '#compile' do
   end
   context 'if exists spigoter.yml and java and git are in PATH' do
     before :each do
-      Spigoter::CLI::Init.main
+      silence_stream(STDOUT) do
+        Spigoter::CLI::Init.main
+      end
     end
     after :each do
       FileUtils.rm_f('plugins.yml')

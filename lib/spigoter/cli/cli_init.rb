@@ -9,21 +9,13 @@ module Spigoter
     # @author Daniel Ramos Acosta <danielramosacosta@hotmail.com>
     module Init
       def self.init
-        Log.info 'Generating files!'
         ->(*) { main }
       end
 
       def self.main(*)
-        if File.exist?('spigoter.yml')
-          Log.warn 'spigoter.yml alredy exists'
-        else
-          generate_spigoter
-        end
-        if File.exist?('plugins.yml')
-          Log.warn 'plugins.yml alredy exists'
-        else
-          generate_plugins
-        end
+        Log.info 'Generating files!'
+        File.exist?('spigoter.yml') ? Log.warn('spigoter.yml alredy exists') : generate_spigoter
+        File.exist?('plugins.yml')  ? Log.warn('plugins.yml alredy exists')  : generate_plugins
       end
 
       def self.generate_spigoter
