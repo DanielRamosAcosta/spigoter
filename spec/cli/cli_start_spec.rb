@@ -8,16 +8,16 @@ describe Spigoter::CLI do
       Spigoter::CLI::Compile.main unless File.exist?('spigot.jar')
     end
     after :all do
-      FileUtils.rm_rf('plugins.yml')
-      FileUtils.rm_rf('spigoter.yml')
+      File.delete('plugins.yml') if File.exist?('plugins.yml') # TODO: echarle un ojo a esto
+      File.delete('spigoter.yml') if File.exist?('spigoter.yml')
       Dir.chdir('..')
     end
     context 'if is the first time' do
       after :each do
-        FileUtils.rm_rf('build')
-        FileUtils.rm_rf('logs')
-        FileUtils.rm_rf('eula.txt')
-        FileUtils.rm_rf('server.properties')
+        FileUtils.rm_r('build') if Dir.exist?('build')
+        FileUtils.rm_r('logs')
+        File.delete('eula.txt')
+        File.delete('server.properties')
       end
       it 'creates eula.txt file' do
         expect(File.exist?('eula.txt')).to be false
@@ -40,7 +40,7 @@ describe Spigoter::CLI do
     end
     context "if spigoter.yml doesn't exists" do
       it 'log an error and exit' do
-        FileUtils.rm_rf('spigoter.yml')
+        File.delete('spigoter.yml')
         silence_stream(STDOUT) do
           expect { Spigoter::CLI.start.call }.to raise_error SystemExit
         end

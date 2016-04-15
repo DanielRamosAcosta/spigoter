@@ -26,11 +26,11 @@ describe Spigoter::Utils do
         FileUtils.touch('spigoter.yml')
       end
       after :each do
-        FileUtils.rm('spigoter.yml')
+        File.delete('spigoter.yml')
       end
       context "and it's well formated" do
         before :each do
-          open('spigoter.yml', 'w+') do |f|
+          File.open('spigoter.yml', 'w+') do |f|
             f << "Root:\n"
             f << "  Child: true\n"
             f << "  Child2: false\n"
@@ -68,7 +68,7 @@ describe Spigoter::Utils do
   describe '#which' do
     context 'if the program exists' do
       it 'returns its path' do
-        expect(Spigoter::Utils.which('cat')).to eq '/bin/cat'
+        expect(Spigoter::Utils.which('java')).not_to be_nil
       end
     end
     context "if doesn't exists" do
@@ -160,7 +160,7 @@ describe Spigoter::Utils do
           end
         end
         after :each do
-          FileUtils.rm('spigoter.yml')
+          File.delete('spigoter.yml')
         end
         it 'returns a hash with the options' do
           expect(Spigoter::Utils.fill_opts_config).to eq(
@@ -179,7 +179,7 @@ describe Spigoter::Utils do
           end
         end
         after :each do
-          FileUtils.rm('spigoter.yml')
+          FileUtils.rm_f('spigoter.yml')
         end
         it 'return a hash with the keys filled with the missing columns' do
           expect(Spigoter::Utils.fill_opts_config).to eq(
@@ -234,7 +234,7 @@ describe Spigoter::Utils do
   describe '#get_plugins' do
     context 'if exists plugins.yml' do
       before :all do
-        open('plugins.yml', 'w+') do |f|
+        File.open('plugins.yml', 'w+') do |f|
           f << "---\n"
           f << "Plugins:\n"
           f << "  FirstJoinPlus:\n"
@@ -246,7 +246,7 @@ describe Spigoter::Utils do
         end
       end
       after :all do
-        FileUtils.rm_f('plugins.yml')
+        File.delete('plugins.yml')
       end
       context 'if called with default parameters' do
         it 'Returns the list of plugins, and its data' do

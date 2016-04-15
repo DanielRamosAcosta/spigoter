@@ -8,60 +8,57 @@ describe Spigoter::CLI, '#init' do
     Dir.chdir('..')
   end
   after :each do
-    FileUtils.rm('plugins.yml')
-    FileUtils.rm('spigoter.yml')
+    File.delete('plugins.yml')
+    File.delete('spigoter.yml')
   end
   context 'by default' do
     it 'writes spigot.yml and plugins.yml and populates them' do
       silence_stream(STDOUT) do
         Spigoter::CLI.init.call
       end
-      plugins_data = YAML.load(File.read('plugins.yml'))
-      config_data = YAML.load(File.read('spigoter.yml'))
+      plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
+      config_data = Spigoter::Utils.loadyaml('spigoter.yml')
       expect(plugins_data).to eq('Plugins' => nil)
-      expect(config_data).to eq(
-        'Spigoter' => {
-          'build_dir' => 'build',
-          'plugins_dir' => 'plugins',
-          'javaparams' => '-Xms1G -Xmx2G',
-          'spigot_version' => 'latest'
-        }
-      )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
+                                }
+                               )
     end
   end
   context 'if detects plugins in plugins dir with plugins inside' do
     before :each do
       Dir.mkdir('plugins')
-      File.open('plugins/AuthMe.jar', 'w')
-      File.open('plugins/Dynmap.jar', 'w')
-      File.open('plugins/Vault.jar', 'w')
-      File.open('plugins/Essentials.jar', 'w')
+      FileUtils.touch('plugins/AuthMe.jar')
+      FileUtils.touch('plugins/Dynmap.jar')
+      FileUtils.touch('plugins/Vault.jar')
+      FileUtils.touch('plugins/Essentials.jar')
     end
     after :each do
-      FileUtils.rm_rf('plugins')
+      FileUtils.rm_r('plugins')
     end
     it 'adds them to the plugins.yml' do
       silence_stream(STDOUT) do
         Spigoter::CLI.init.call
       end
-      plugins_data = YAML.load(File.read('plugins.yml'))
-      config_data = YAML.load(File.read('spigoter.yml'))
-      expect(plugins_data).to eq(
-        'Plugins'  => {
-          'Dynmap' => nil,
-          'AuthMe' => nil,
-          'Vault' => nil,
-          'Essentials' => nil
-        }
-      )
-      expect(config_data).to eq(
-        'Spigoter' => {
-          'build_dir' => 'build',
-          'plugins_dir' => 'plugins',
-          'javaparams' => '-Xms1G -Xmx2G',
-          'spigot_version' => 'latest'
-        }
-      )
+      plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
+      config_data = Spigoter::Utils.loadyaml('spigoter.yml')
+      expect(plugins_data).to eq('Plugins'  => {
+                                   'Dynmap' => nil,
+                                   'AuthMe' => nil,
+                                   'Vault' => nil,
+                                   'Essentials' => nil
+                                 }
+                                )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
+                                }
+                               )
     end
   end
   context 'if there is a plugins dir, but is empty' do
@@ -69,28 +66,27 @@ describe Spigoter::CLI, '#init' do
       Dir.mkdir('plugins')
     end
     after :each do
-      FileUtils.rm_rf('plugins')
+      FileUtils.rm_r('plugins')
     end
     it 'adds them to the plugins.yml' do
       silence_stream(STDOUT) do
         Spigoter::CLI.init.call
       end
-      plugins_data = YAML.load(File.read('plugins.yml'))
-      config_data = YAML.load(File.read('spigoter.yml'))
+      plugins_data = Spigoter::Utils.loadyaml('plugins.yml')
+      config_data = Spigoter::Utils.loadyaml('spigoter.yml')
       expect(plugins_data).to eq('Plugins' => nil)
-      expect(config_data).to eq(
-        'Spigoter' => {
-          'build_dir' => 'build',
-          'plugins_dir' => 'plugins',
-          'javaparams' => '-Xms1G -Xmx2G',
-          'spigot_version' => 'latest'
-        }
-      )
+      expect(config_data).to eq('Spigoter' => {
+                                  'build_dir' => 'build',
+                                  'plugins_dir' => 'plugins',
+                                  'javaparams' => '-Xms1G -Xmx2G',
+                                  'spigot_version' => 'latest'
+                                }
+                               )
     end
   end
   context 'if plugins.yml already exists' do
     before :each do
-      File.open('plugins.yml', 'w')
+      FileUtils.touch('plugins.yml')
     end
     it 'log a warning' do
       silence_stream(STDOUT) do
@@ -102,7 +98,7 @@ describe Spigoter::CLI, '#init' do
   end
   context 'if spigoter.yml already exists' do
     before :each do
-      File.open('spigoter.yml', 'w')
+      FileUtils.touch('spigoter.yml')
     end
     it 'If spigoter.yml already exists, log a warning' do
       silence_stream(STDOUT) do

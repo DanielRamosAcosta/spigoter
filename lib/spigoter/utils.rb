@@ -13,7 +13,10 @@ module Spigoter
     def self.loadyaml(path)
       raise "File #{path} doesn't exists" unless File.exist?(path)
 
-      opts = YAML.load(File.open(path).read)
+      opts = {}
+      File.open(path, 'r') do |f|
+        opts = YAML.load(f)
+      end
 
       raise "Malformed YAML file #{path}" unless opts.class == Hash
       opts

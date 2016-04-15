@@ -26,23 +26,23 @@ describe Spigoter::CLI do
         end
       end
       after :each do
-        FileUtils.rm_f('plugins.yml')
+        File.delete('plugins.yml')
       end
       context 'and plugins dir exists' do
         before :each do
           Dir.mkdir('plugins')
         end
         after :each do
-          FileUtils.rm_rf('plugins')
+          FileUtils.rm_r('plugins')
         end
         context 'when called with default parameters' do
           it 'It has to download those plugins' do
             silence_stream(STDOUT) do
               Spigoter::CLI.update.call
             end
-            expect(File.open('plugins/FirstJoinPlus.jar').size).to be_within(10_000).of(52_309)
-            expect(File.open('plugins/NeoPaintingSwitch.jar').size).to be_within(10_000).of(13_173)
-            expect(File.open('plugins/Nametags.jar').size).to be_within(10_000).of(14_695)
+            expect(File.size('plugins/FirstJoinPlus.jar')).to be_within(10_000).of(52_309)
+            expect(File.size('plugins/NeoPaintingSwitch.jar')).to be_within(10_000).of(13_173)
+            expect(File.size('plugins/Nametags.jar')).to be_within(10_000).of(14_695)
           end
         end
         context 'when called with a list of plugins' do
@@ -50,7 +50,7 @@ describe Spigoter::CLI do
             silence_stream(STDOUT) do
               Spigoter::CLI.update.call(list: [:NeoPaintingSwitch])
             end
-            expect(File.open('plugins/NeoPaintingSwitch.jar').size).to be_within(10_000).of(13_173)
+            expect(File.size('plugins/NeoPaintingSwitch.jar')).to be_within(10_000).of(13_173)
           end
         end
         context 'with an error in spigoter.yml' do
@@ -71,8 +71,8 @@ describe Spigoter::CLI do
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: Nametags\n"
             expect(@log_output.readline).to eq " INFO  Spigoter : Updating plugin: CheeseMaker\n"
             expect(@log_output.readline).to eq "ERROR  Spigoter : Plugin type ajlksdjhasjd doesn't exists!\n"
-            expect(File.open('plugins/FirstJoinPlus.jar').size).to be_within(10_000).of(52_309)
-            expect(File.open('plugins/NeoPaintingSwitch.jar').size).to be_within(10_000).of(13_173)
+            expect(File.size('plugins/FirstJoinPlus.jar')).to be_within(10_000).of(52_309)
+            expect(File.size('plugins/NeoPaintingSwitch.jar')).to be_within(10_000).of(13_173)
           end
         end
         context 'if there is no internet' do
