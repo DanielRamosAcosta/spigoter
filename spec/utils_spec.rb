@@ -7,6 +7,12 @@ describe Spigoter::Utils do
       file = Spigoter::Utils.download('http://example.com')
       expect(file.size).to be_within(100).of(1270)
     end
+    context 'if the url is HTTPS' do
+      it 'downloads the file correctly' do
+        file = Spigoter::Utils.download('https://wordpress.org/plugins/about/readme.txt')
+        expect(file.size).to be_within(100).of(4567)
+      end
+    end
     context 'without an internet connection' do
       before :each do
         allow(Spigoter::Utils).to receive(:open).and_raise(SocketError)
