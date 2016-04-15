@@ -1,0 +1,94 @@
+.code {
+	padding: .9rem .9rem;
+    color: #bd4147;
+    background-color: #f7f7f9;
+    border-radius: .25rem;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    border: 1px solid #B71C1C;
+}
+
+/* COSASS ESPECÍFICAS */
+
+.install-cmd {
+	font-size: 1.3em;
+}
+
+#logo-navbar {
+	height: 55px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.main-row {
+	height: calc(100vh - 84px);
+}
+
+@media (max-width: 601px) {
+	#logo-navbar {
+		height: 50px;
+		padding-top: 8px;
+	}
+	.main-row {
+		height: calc(100vh - 76px);
+	}
+}
+
+nav {
+	box-shadow: none;
+}
+
+.side-nav li a:hover {
+	color: #f44336;
+}
+
+a {
+	transition: color .3s ease;
+	color:white;
+}
+
+a:hover {
+	color: #FFA9A3;
+}
+
+h2 {
+	font-size: 5.5vh;
+}
+
+div .white .card {
+	background-color: #f44336;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+	color: white;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+	color: #FFA9A3;
+}
+
+div .white .card-content {
+	color: white;
+}
+
+div .white .card .card-action {
+	border-top: 1px solid rgba(255,255,255,0.5);
+}
+
+.separated {
+	/*padding-top: 20vh;
+	padding-bottom: 20vh;*/
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.logo-spaced {
+	margin-top: 8vh;
+	margin-bottom: 8vh;
+}
