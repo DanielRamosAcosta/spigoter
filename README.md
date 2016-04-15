@@ -2,7 +2,8 @@
 
 [![Gem Version](https://img.shields.io/gem/v/spigoter.svg?style=flat-square)](https://rubygems.org/gems/spigoter)
 [![Gem Downloads](https://img.shields.io/gem/dt/spigoter.svg?style=flat-square)](https://rubygems.org/gems/spigoter)
-[![Build Status](https://img.shields.io/travis/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://travis-ci.org/DanielRamosAcosta/spigoter)
+[![Linux Build Status](https://img.shields.io/travis/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://travis-ci.org/DanielRamosAcosta/spigoter)
+[![Windows Build Status](https://img.shields.io/appveyor/ci/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://ci.appveyor.com/project/DanielRamosAcosta/spigoter)
 [![Coverage Status](https://img.shields.io/coveralls/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://coveralls.io/github/DanielRamosAcosta/spigoter?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/github/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://codeclimate.com/github/DanielRamosAcosta/spigoter)
 [![Dependency Status](https://img.shields.io/gemnasium/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://gemnasium.com/DanielRamosAcosta/spigoter)
