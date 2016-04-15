@@ -1,15 +1,32 @@
-# appveyor.yml
+---
+
+version: "{build}"
+
 install:
-  - set PATH=C:\Ruby22-x64;C:\Program Files\Java\jdk1.8.0;%PATH%
+  - set PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - set PATH=C:\Program Files\Java\jdk1.8.0;%PATH%
+  - echo %PATH%
   - bundle install
 
-build: off
+environment:
+  matrix:
+    - ruby_version: '22'
+    - ruby_version: 22-x64
+    - ruby_version: '23'
+    - ruby_version: 23-x64
+
+branches:
+  only:
+    - master
 
 before_test:
   - ruby -v
   - gem -v
   - bundle -v
-  - ping https://www.spigotmc.org/resources/nametags.13119/
+  - ping www.spigotmc.org
+  - ping dev.bukkit.org
+  - ping www.curse.com
+  - ping hub.spigotmc.org
 
 test_script:
   - bundle exec rake
