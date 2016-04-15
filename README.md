@@ -19,57 +19,15 @@ gem install spigoter
 
 ## Features
 
-### Run the server
-    spigoter start
+With this gem, you can easily mantain and update your plugins, recompile Spigot and start your server
 
-### Update plugins
-    spigoter update [--list=plugin1,plugin2,...]
+## Quick Start
 
-#### Usage
-You have to drop a `plugin.yml` file in the server root directory. There will be saved some relevant information of plugins, as well as some customization.
+Install the gem, enter your server root directory and then:
 
-Basic example:
+    spigoter init
 
-```yml
-Authme:
-  type: curse
-  url: "http://mods.curse.com/bukkit-plugins/minecraft/authme-reloaded"
-ChopTree:
-  type: spigotmc
-  url: "https://www.spigotmc.org/resources/choptree.2046/"
-Dynmap:
-  type: devbukkit
-  url: "http://dev.bukkit.org/bukkit-plugins/dynmap/"
-Essentials:
-  type: direct
-  url: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/lastSuccessfulBuild/artifact/Essentials/target/Essentials-2.x-SNAPSHOT.jar"
-  keep_eye_on: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/"
-EssentialsChat:
-  type: direct
-  url: "https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/lastSuccessfulBuild/artifact/EssentialsChat/target/EssentialsChat-2.x-SNAPSHOT.jar"
-Multiverse-core:
-  keep_eye_on: "http://mods.curse.com/bukkit-plugins/minecraft/multiverse-core"
-  type: direct
-  url: "http://ci.onarandombox.com/job/Multiverse-Core/lastSuccessfulBuild/artifact/target/Multiverse-Core-2.5.jar"
-Towny:
-  type: manual
-  url: "http://palmergames.com"
-```
-
-#### Currently suported plugin hosted sites
-* [Curse](http://mods.curse.com/bukkit-plugins/minecraft)
-* [BukkitDev](http://dev.bukkit.org/)
-
-#### Planned
-* [Spigot](https://www.spigotmc.org/)
-* Direct download
-* Manual
-* Custom download via piping (first download, second unrar, then extract X file, ...)
-
-### Update Spigot's version
-    spigoter compile [--version={1.9|1.8|...}]
-
-This command excecute the `buildtools .jar` in a `build`directory in the root server folder. Then, it'll replace the old version with the new one.
+This will generate the necessary files that you need. Now customize your `spigoter.yml` and `plugins.yml` and you are ready to start!
 
 ## Development
 
