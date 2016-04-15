@@ -1,0 +1,14 @@
+# appveyor.yml
+install:
+  - set PATH=C:\Ruby22-x64;C:\Program Files\Java\jdk1.8.0;%PATH%
+  - bundle install
+
+build: off
+
+before_test:
+  - ruby -v
+  - gem -v
+  - bundle -v
+
+test_script:
+  - bundle exec rake
