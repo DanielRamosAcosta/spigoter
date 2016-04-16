@@ -159,3 +159,8 @@ div .white .card .card-action {
 .card-content p {
 	text-align: justify;
 }
+
+.text-version {
+	color: #e0e0e0;
+	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}

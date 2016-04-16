@@ -1,3 +1,5 @@
+var lolasoqudetecagas = {};
+
 $(function() {
 	$(".button-collapse").sideNav();
 
@@ -26,7 +28,14 @@ $(function() {
 	$("#card-start").height(maxheight);
 	$("#card-update").height(maxheight);
 
-	$.get("github.com/DanielRamosAcosta/spigoter/releases/latest", function(data) {
+	$.get("", function(data) {
 		console.log(data);
+	});
+	$.ajax({
+		url: 'http://api.github.com/repos/DanielRamosAcosta/spigoter/releases/latest',
+		dataType: 'jsonp',
+		success: function(dataWeGotViaJsonp){
+			$("#spigoter_version").text(dataWeGotViaJsonp.data.tag_name);
+		}
 	});
 });
