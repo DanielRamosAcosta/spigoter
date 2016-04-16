@@ -1,13 +1,17 @@
+html {
+      scroll-behavior: smooth;
+}
+
 .code {
 	padding: .9rem .9rem;
     color: #bd4147;
-    background-color: #f7f7f9;
+    background-color: white;
     border-radius: .25rem;
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     border: 1px solid #B71C1C;
 }
 
-/* COSASS ESPECÍFICAS */
+/* COSAS ESPECÍFICAS */
 
 .install-cmd {
 	font-size: 1.3em;
@@ -31,6 +35,10 @@
 	.main-row {
 		height: calc(100vh - 76px);
 	}
+}
+
+.filled-rows {
+	height: 100vh;
 }
 
 nav {
@@ -75,8 +83,11 @@ div .white .card .card-action {
 }
 
 .separated {
-	/*padding-top: 20vh;
-	padding-bottom: 20vh;*/
+	margin-top: 20vh;
+}
+
+.separated-bottom{
+	margin-bottom: 15vh;
 }
 
 .unselectable {
@@ -91,4 +102,60 @@ div .white .card .card-action {
 .logo-spaced {
 	margin-top: 8vh;
 	margin-bottom: 8vh;
+}
+
+
+.feature-icon {
+	font-size: 13vh;
+	padding-top: 0.4vh;
+	padding-bottom: 1vh;
+}
+
+.menu-navbar-bars {
+	margin-left: 1.6vh;
+}
+
+.left-list{
+	margin-left: 9vh;
+}
+
+.qs-title {
+	font-size: 3.2vh;
+}
+
+
+#heartbeat {
+	width: 15px;
+	-webkit-animation: beat 1.15s ease-out infinite normal;
+}
+
+@-webkit-keyframes beat {
+	0% {
+		-webkit-transform: scale(1.0) rotate(0deg);
+	}
+	65% {
+		-webkit-transform: scale(1.1) rotate(0deg);
+	}
+	75% {
+		-webkit-transform: scale(.9) rotate(0deg);
+	}
+	100% {
+		-webkit-transform: scale(1.0) rotate(0deg);
+	}
+}
+
+#github-star {
+	width: 160px;
+	height: 30px;
+	border: 0;
+}
+
+#github-fork {
+	width: 158px;
+	height: 30px;
+	border: 0;
+}
+
+.card-content p {
+	text-align: justify;
 }

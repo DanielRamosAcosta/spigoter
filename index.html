@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Spigoter</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
 	<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" rel="stylesheet" integrity="sha256-X8T20YiBxsZDcRsTFfK2x4KARjd9ccFyO7IgeXFl71k=" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 	<link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="red white-text">
 	<nav>
 		<div class="nav-wrapper red">
 			<a href="#!" class="brand-logo"><img src="assets/img/favicon.svg" id="logo-navbar" alt=""></a>
-			<a href="#" data-activates="mobile-panel" class="button-collapse"><i class="material-icons">menu</i></a>
+			<a href="#" data-activates="mobile-panel" class="button-collapse"><i class="material-icons menu-navbar-bars">menu</i></a>
+			<ul class="left hide-on-med-and-down left-list">
+				<li><a href="#features">Features</a></li>
+				<li><a href="#quick-start">Quick Start</a></li>
+			</ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter">Github</a></li>
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter/wiki">Wiki</a></li>
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter/issues">Issues</a></li>
 			</ul>
 			<ul class="side-nav" id="mobile-panel">
+				<li><a href="#features">Features</a></li>
+				<li><a href="#quick-start">Quick Start</a></li>
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter">Github</a></li>
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter/wiki">Wiki</a></li>
 				<li><a href="https://github.com/DanielRamosAcosta/spigoter/issues">Issues</a></li>
@@ -45,36 +52,125 @@
 										<p class="code install-cmd left-align"><span class="unselectable">$ </span>gem install spigoter</p>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col s12 m8 offset-m2">
+										<iframe src="https://ghbtns.com/github-btn.html?user=DanielRamosAcosta&repo=spigoter&type=star&count=true&size=large" id="github-star"></iframe>
+										<iframe src="https://ghbtns.com/github-btn.html?user=DanielRamosAcosta&repo=spigoter&type=fork&count=true&size=large" id="github-fork"></iframe>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--  TODO add features
-		<div class="row white">
+		<div class="row white" id="features">
 			<div class="col s12">
 				<div class="container">
+					<div class="row center-align separated">
+						<h1 class="red-text">Features</h1>
+					</div>
 					<div class="row">
-						<div class="col s12 m6">
+						<div class="col s12 m4">
 							<div class="card">
-								<div class="card-content">
-									<span class="card-title">Card Title</span>
-									<p>I am a very simple card. I am good at containing small bits of information.
-										I am convenient because I require little markup to use effectively.</p>
+								<div class="card-content center-align"  id="card-compile">
+									<span class="card-title">Compile</span>
+									<br>
+									<i class="material-icons feature-icon">settings_input_composite</i>
+									<p>Don't remember the parameters to build? Too lazy to copy and paste from one place
+									   to other? The compile command does this dirty work for you</p>
 								</div>
 								<div class="card-action">
-									<a href="#">This is a link</a>
-									<a href="#">This is a link</a>
+									<a href="#">Read more</a>
 								</div>
 							</div>
+						</div>
+						<div class="col s12 m4">
+							<div class="card">
+								<div class="card-content center-align" id="card-start">
+									<span class="card-title">Start</span>
+									<br>
+									<i class="material-icons feature-icon">play_circle_filled</i>
+									<p>You can also start the server with Spigoter, so you don't have scripts floating
+									   arround your server</p>
+								</div>
+								<div class="card-action">
+									<a href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m4">
+							<div class="card">
+								<div class="card-content center-align" id="card-update">
+									<span class="card-title">Update</span>
+									<br>
+									<i class="material-icons feature-icon">new_releases</i>
+									<p>Update all your plugins to the latest version in just one command. This will look
+									   in the website of each plugin and will download and set latest version</p>
+								</div>
+								<div class="card-action">
+									<a href="#">Read more</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row red-text center-align separated" id="quick-start">
+						<div class="col s12">
+							<h1>Quick start</h1>
+						</div>
+					</div>
+					<div class="row red-text">
+						<div class="col s12 m6">
+							<h2 class="qs-title left-align">Generate needed files</h2>
+							<p class="code install-cmd left-align">
+								<span class="unselectable">$ </span>spigoter init
+							</p>
+						</div>
+						<div class="col s12 m6">
+							<h2 class="qs-title left-align">Compile Spigot</h2>
+							<p class="code install-cmd left-align">
+								<span class="unselectable">$ </span>spigoter compile
+							</p>
+						</div>
+					</div>
+					<div class="row red-text separated-bottom">
+						<div class="col s12 m6">
+							<h2 class="qs-title left-align">Update plugins</h2>
+							<p class="code install-cmd left-align">
+								<span class="unselectable">$ </span>spigoter init
+							</p>
+						</div>
+						<div class="col s12 m6">
+							<h2 class="qs-title left-align">Help?</h2>
+							<p class="code install-cmd left-align">
+								<span class="unselectable">$ </span>spigoter --help
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		-->
 	</div>
+
+	<footer class="page-footer red">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m4">
+					<h5 class="white-text">Spigoter</h5>
+					<p class="grey-text text-lighten-4">Coded with <img src="assets/img/love.svg" alt="love" id="heartbeat"></p>
+				</div>
+				<div class="col s12 m8">
+					<h5 class="white-text">Credits</h5>
+					<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				<span>© 2016 Daniel Ramos</span>
+			</div>
+		</div>
+	</footer>
 
 	<script
 		src="https://code.jquery.com/jquery-2.2.3.min.js"
