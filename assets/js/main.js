@@ -28,14 +28,11 @@ $(function() {
 	$("#card-start").height(maxheight);
 	$("#card-update").height(maxheight);
 
-	$.get("", function(data) {
-		console.log(data);
-	});
 	$.ajax({
 		url: 'http://api.github.com/repos/DanielRamosAcosta/spigoter/releases/latest',
 		dataType: 'jsonp',
 		success: function(dataWeGotViaJsonp){
-			$("#spigoter_version").text(dataWeGotViaJsonp.data.tag_name);
+			$("#spigoter_version").html(dataWeGotViaJsonp.data.tag_name);
 		}
 	});
 });
