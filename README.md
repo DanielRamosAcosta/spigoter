@@ -8,6 +8,8 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://codeclimate.com/github/DanielRamosAcosta/spigoter)
 [![Dependency Status](https://img.shields.io/gemnasium/DanielRamosAcosta/spigoter.svg?style=flat-square)](https://gemnasium.com/DanielRamosAcosta/spigoter)
 
+# UNMAINTAINED
+
 
 Spigoter is a Ruby gem that gives you many tools in order to make your server keepup easier.
 
